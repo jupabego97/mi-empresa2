@@ -3,22 +3,17 @@
     "hero": {
       "type": "main-hero",
       "settings": {
-        "subtitle": "¡Bienvenido a NANO!",
-        "title": "Tecnología de calidad al mejor precio",
-        "description": "<p>Encuentra computadores, tablets, parlantes y accesorios con garantía. Compra fácil y segura con envío a todo el país.</p>",
-        "button_label": "Ver productos",
-        "button_link": "shopify://collections/all",
-        "button_label_2": "Ver ofertas",
-        "button_link_2": "shopify://collections/all",
-        "show_trust_badges": true
+        "title": "Al Son De La Tecnología.",
+        "description": "Computadores, tablets, parlantes y accesorios con garantía comprobada. Compra fácil y segura desde cualquier lugar de Colombia.",
+        "button_label": "VER OFERTAS FLASH",
+        "button_link": "shopify://collections/all"
       }
     },
     "featured-products": {
       "type": "featured-products",
       "settings": {
-        "title": "Nuestros Productos",
-        "subtitle": "Explora nuestra selección de tecnología de alta calidad",
-        "products_to_show": 8,
+        "title": "Catálogo Destacado",
+        "products_to_show": 9,
         "show_view_all": true
       }
     },
