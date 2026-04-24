@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0">
-  <meta name="theme-color" content="#6366F1">
+  <meta name="theme-color" content="#00C4B4">
   
   <title>
     {{ page_title }}
@@ -218,13 +218,13 @@
     </script>
   {%- endif -%}
 
-  <!-- Theme variables from settings - Paleta NANO -->
+  <!-- Theme variables from settings - Paleta NANO (v4) -->
   <style>
     :root {
-      --color-primary: {{ settings.color_primary | default: '#14B8A6' }};
+      --color-primary: {{ settings.color_primary | default: '#00C4B4' }};
       --color-secondary: {{ settings.color_secondary | default: '#38BDF8' }};
-      --color-background: {{ settings.color_background | default: '#F0F9FF' }};
-      --color-text: {{ settings.color_text | default: '#0F172A' }};
+      --color-background: {{ settings.color_background | default: '#F7F8FA' }};
+      --color-text: {{ settings.color_text | default: '#1F2937' }};
       --color-brand-teal: #2DD4BF;
       --color-brand-blue: #7DD3FC;
       {%- if settings.font_heading -%}
@@ -254,6 +254,7 @@
 
   <!-- Header Section -->
   {% section 'header' %}
+  {{ 'theme-header-clean.css' | asset_url | stylesheet_tag }}
 
   <!-- Main Content -->
   <main id="MainContent" class="main-content" role="main" tabindex="-1">
@@ -262,6 +263,8 @@
 
   <!-- Footer Section -->
   {% section 'footer' %}
+
+  {{ 'theme-extras-clean.css' | asset_url | stylesheet_tag }}
 
   <!-- Accessibility: Announce route changes for screen readers -->
   <div id="route-announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>

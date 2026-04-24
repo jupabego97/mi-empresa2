@@ -1,0 +1,195 @@
+/* Se carga DESPUÉS del <style> en sections/header.liquid
+   NANO v4 — alinea anuncio, nav y acciones con el sistema limpio */
+
+.announcement-bar {
+  background: #1F2937 !important;
+  color: #F9FAFB !important;
+  border-bottom: 1px solid #374151 !important;
+  padding: 0.5rem 0 !important;
+}
+
+.announcement-bar__item {
+  font-family: var(--font-body) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+}
+
+.site-header {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E5E7EB !important;
+}
+
+[data-theme="dark"] .site-header {
+  background: var(--color-bg) !important;
+  border-bottom-color: var(--color-border) !important;
+}
+
+.header__logo-text {
+  text-transform: none !important;
+  font-weight: 800 !important;
+  font-size: 1.25rem !important;
+  letter-spacing: -0.02em !important;
+}
+
+.header__menu-link {
+  font-family: var(--font-body) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  border: 1px solid transparent !important;
+  border-radius: 999px !important;
+}
+
+.header__menu-link--active {
+  border-radius: 999px !important;
+}
+
+.header__dropdown {
+  border-radius: 12px !important;
+  border: 1px solid #E5E7EB !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+.header__dropdown-link {
+  font-family: var(--font-body) !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+}
+
+.header__action {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;
+  text-transform: none !important;
+}
+
+.header__cart {
+  font-family: var(--font-body) !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  border-radius: 10px !important;
+  background: #00C4B4 !important;
+  color: #fff !important;
+  border: 1px solid #00C4B4 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.header__cart:hover {
+  background: #00A89A !important;
+  color: #fff !important;
+  border-color: #00A89A !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 196, 180, 0.35) !important;
+}
+
+.header__cart:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+}
+
+.header__cart-count {
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #fff !important;
+}
+
+.header__cart:hover .header__cart-count {
+  background: #fff !important;
+  color: #00A89A !important;
+}
+
+.header__mobile-toggle {
+  border: 1px solid #E5E7EB !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+}
+
+.header__mobile-toggle:active {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.header__hamburger span {
+  border-radius: 1px !important;
+}
+
+.header__mobile-menu {
+  border-right: 1px solid #E5E7EB !important;
+}
+
+.header__mobile-link {
+  font-family: var(--font-body) !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.header__mobile-link:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.header__mobile-account {
+  border-top: 1px solid #E5E7EB !important;
+}
+
+.header__account-toggle {
+  font-family: var(--font-body) !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;
+}
+
+.header__account-dropdown {
+  border-radius: 12px !important;
+  border: 1px solid #E5E7EB !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.header__account-avatar {
+  border-radius: 12px !important;
+  font-family: var(--font-body) !important;
+}
+
+.header__account-name,
+.header__account-email {
+  font-family: var(--font-body) !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+}
+
+.header__account-divider {
+  height: 1px !important;
+  background: #E5E7EB !important;
+}
+
+.header__account-link {
+  font-family: var(--font-body) !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+  letter-spacing: 0.01em !important;
+}
+
+.header__account-guest p,
+.header__account-register {
+  font-family: var(--font-body) !important;
+  text-transform: none !important;
+}
+
+[data-theme="dark"] .header__dropdown,
+[data-theme="dark"] .header__account-dropdown {
+  border-color: var(--color-border) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}

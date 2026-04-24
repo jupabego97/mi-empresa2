@@ -1,6 +1,6 @@
 /* ============================================
-   NANO Tech Store - Neobrutalist Design System
-   Flat colors | Sharp borders | Offset shadows
+   NANO Tech Store - Clean conversion design v4.0
+   (base system + tokens; header overrides: theme-header-clean.css)
    ============================================ */
 
 /* Fuentes */
@@ -10,17 +10,17 @@
    CSS Custom Properties - Neobrutalist
    -------------------------------------------- */
 :root {
-  /* Paleta neobrutalist NANO */
-  --color-bg: #FFFFFF;
-  --color-bg-alt: #F5F5F5;
+  /* Fondo limpio, producto protagonista */
+  --color-bg: #F7F8FA;
+  --color-bg-alt: #EEF0F2;
   --color-surface: #FFFFFF;
   --color-surface-elevated: #FFFFFF;
 
-  /* Acento principal - Teal NANO */
+  /* Acento - Teal NANO */
   --color-accent: #00C4B4;
   --color-accent-hover: #00A89A;
-  --color-accent-light: rgba(0, 196, 180, 0.15);
-  --color-accent-glow: rgba(0, 196, 180, 0.3);
+  --color-accent-light: rgba(0, 196, 180, 0.12);
+  --color-accent-glow: rgba(0, 196, 180, 0.25);
 
   /* Texto */
   --color-text: #1F2937;
@@ -28,10 +28,10 @@
   --color-text-muted: #6B7280;
   --color-text-inverse: #FFFFFF;
 
-  /* Bordes */
-  --color-border: #00C4B4;
+  /* Bordes neutros */
+  --color-border: #E5E7EB;
   --color-border-dark: #1F2937;
-  --color-border-light: rgba(0, 196, 180, 0.3);
+  --color-border-light: #E5E7EB;
 
   /* Footer dark */
   --color-footer-bg: #1F2937;
@@ -92,28 +92,29 @@
   --font-size-3xl: var(--text-3xl);
   --font-size-4xl: var(--text-4xl);
 
-  /* Brutalist: sin border-radius */
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-2xl: 0px;
-  --radius-full: 0px;
+  /* Radios modernos */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 999px;
 
-  --border-radius-sm: 0px;
-  --border-radius-md: 0px;
-  --border-radius-lg: 0px;
-  --border-radius-xl: 0px;
-  --border-radius-2xl: 0px;
-  --border-radius-full: 0px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-2xl: 20px;
+  --border-radius-full: 999px;
 
-  /* Sombras offset - estilo brutalist */
-  --shadow-sm: 2px 2px 0px 0px var(--color-accent);
-  --shadow-md: 4px 4px 0px 0px var(--color-accent);
-  --shadow-lg: 6px 6px 0px 0px var(--color-accent);
-  --shadow-xl: 8px 8px 0px 0px var(--color-accent);
-  --shadow-dark: 4px 4px 0px 0px #1F2937;
-  --shadow-glow: 4px 4px 0px 0px var(--color-accent);
+  /* Sombras suaves */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --shadow-xl: 0 12px 32px rgba(0,0,0,0.12);
+  --shadow-dark: 0 4px 12px rgba(31, 41, 55, 0.12);
+  --shadow-glow: 0 4px 20px rgba(0, 196, 180, 0.2);
+  --card-hover: 0 8px 24px rgba(0, 196, 180, 0.12);
 
   /* Contenedor */
   --container-max: 1280px;
@@ -131,11 +132,11 @@
   --color-primary-dark: var(--color-accent-hover);
   --color-secondary: var(--color-accent);
   --color-secondary-light: var(--color-accent-light);
-  --color-brand-blue: #B2EBF2;
+  --color-brand-blue: #E5E7EB;
   --color-brand-blue-dark: #00C4B4;
   --color-brand-teal: #00C4B4;
   --color-handdrawn: #00C4B4;
-  --color-handdrawn-alt: #00C4B4;
+  --color-handdrawn-alt: #00A89A;
 
   /* Transiciones */
   --transition-fast: 150ms ease;
@@ -164,13 +165,14 @@
   --color-text-secondary: #D1D5DB;
   --color-text-muted: #9CA3AF;
   --color-text-inverse: #1F2937;
-  --color-border: #00C4B4;
-  --color-border-dark: #9CA3AF;
+  --color-border: #4B5563;
+  --color-border-dark: #6B7280;
   --color-footer-bg: #111827;
-  --shadow-sm: 2px 2px 0px 0px var(--color-accent);
-  --shadow-md: 4px 4px 0px 0px var(--color-accent);
-  --shadow-lg: 6px 6px 0px 0px var(--color-accent);
-  --shadow-xl: 8px 8px 0px 0px var(--color-accent);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.25);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.3);
+  --shadow-xl: 0 12px 32px rgba(0,0,0,0.35);
+  --card-hover: 0 8px 24px rgba(0, 196, 180, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -183,7 +185,7 @@
     --color-text-secondary: #D1D5DB;
     --color-text-muted: #9CA3AF;
     --color-text-inverse: #1F2937;
-    --color-border: #00C4B4;
+    --color-border: #4B5563;
   }
 }
 
@@ -235,10 +237,11 @@ button {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 900;
-  line-height: 1.15;
+  font-weight: 800;
+  line-height: 1.2;
   color: var(--color-text);
-  text-transform: uppercase;
+  text-transform: none;
+  letter-spacing: -0.02em;
 }
 
 ::selection {
@@ -254,7 +257,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--color-bg-alt); }
-::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 0; }
+::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-hover); }
 
 /* --------------------------------------------
@@ -293,7 +296,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --------------------------------------------
-   Botones - Estilo Neobrutalist
+   Botones
    -------------------------------------------- */
 .btn {
   display: inline-flex;
@@ -301,24 +304,24 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.5;
-  border-radius: 0;
+  border-radius: var(--radius-lg);
   transition: all var(--transition-fast);
   cursor: pointer;
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-border);
   text-decoration: none;
   white-space: nowrap;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  box-shadow: var(--shadow-dark);
+  text-transform: none;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-sm);
   position: relative;
 }
 
 .btn:active {
-  transform: translate(4px, 4px);
+  transform: translateY(1px);
   box-shadow: none;
 }
 
@@ -332,31 +335,32 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-accent);
   color: white;
   border-color: var(--color-accent);
-  box-shadow: 4px 4px 0px 0px var(--color-text);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn--primary:hover {
   background: var(--color-accent-hover);
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px 0px var(--color-text);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .btn--primary:active {
-  transform: translate(4px, 4px);
-  box-shadow: none;
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn--secondary {
   background: var(--color-surface);
   color: var(--color-text);
-  border: 2px solid var(--color-text);
-  box-shadow: var(--shadow-dark);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn--secondary:hover {
   background: var(--color-bg-alt);
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px 0px var(--color-text);
+  border-color: var(--color-text-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .btn--ghost {
@@ -405,16 +409,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .bento-cell {
   background: var(--color-surface);
-  border-radius: 0;
-  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
   overflow: hidden;
   transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
 }
 
 .bento-cell:hover {
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-xl);
-  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .bento-cell--2x1 { grid-column: span 2; }
@@ -453,17 +458,19 @@ h1, h2, h3, h4, h5, h6 {
 .product-card {
   position: relative;
   background: var(--color-surface);
-  border-radius: 0;
-  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
   overflow: hidden;
   transition: all var(--transition-base);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-sm);
 }
 
 .product-card:hover {
-  transform: translate(-2px, -8px);
-  box-shadow: 8px 8px 0px 0px var(--color-accent);
+  transform: translateY(-3px);
+  box-shadow: var(--card-hover, 0 8px 24px rgba(0, 196, 180, 0.12));
+  border-color: var(--color-accent);
 }
 
 .product-card__image {
@@ -471,7 +478,7 @@ h1, h2, h3, h4, h5, h6 {
   aspect-ratio: 1;
   overflow: hidden;
   background: var(--color-bg);
-  border-bottom: 2px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .product-card__image img {
@@ -479,13 +486,13 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   object-fit: cover;
   transition: all var(--transition-slow);
-  filter: grayscale(100%);
-  opacity: 0.9;
+  filter: none;
+  opacity: 1;
 }
 
 .product-card:hover .product-card__image img {
-  transform: scale(1.05);
-  filter: grayscale(0%);
+  transform: scale(1.04);
+  filter: none;
   opacity: 1;
 }
 
@@ -528,14 +535,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .product-card__price-current {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--color-accent);
 }
 
 .product-card__price-compare {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   text-decoration: line-through;
@@ -549,26 +556,28 @@ h1, h2, h3, h4, h5, h6 {
 .product-card__btn {
   width: 100%;
   padding: var(--space-3) var(--space-4);
-  background: transparent;
-  color: var(--color-text);
-  border: 2px solid var(--color-text);
-  border-radius: 0;
-  font-family: var(--font-mono);
+  background: var(--color-accent);
+  color: #fff;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
   cursor: pointer;
   transition: all var(--transition-fast);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-transform: none;
+  letter-spacing: 0.01em;
 }
 
 .product-card__btn:hover {
-  background: var(--color-text);
-  color: white;
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 .product-card__btn svg {
@@ -601,12 +610,12 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: var(--space-1);
   padding: var(--space-1) var(--space-3);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: 0;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-sm);
 }
 
 .badge--sale {
@@ -647,31 +656,31 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-label {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
   margin-bottom: var(--space-2);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .form-input {
   width: 100%;
   padding: var(--space-3) var(--space-4);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-base);
   color: var(--color-text);
   background: var(--color-surface);
-  border: 2px solid var(--color-text);
-  border-radius: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   transition: all var(--transition-fast);
 }
 
 .form-input:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 4px 4px 0px 0px var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
 }
 
 .form-input::placeholder { color: var(--color-text-muted); }
@@ -680,8 +689,8 @@ h1, h2, h3, h4, h5, h6 {
 .quantity-selector {
   display: inline-flex;
   align-items: center;
-  border: 2px solid var(--color-text);
-  border-radius: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 
@@ -694,8 +703,8 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-bg-alt);
   color: var(--color-text);
   transition: all var(--transition-fast);
-  font-family: var(--font-mono);
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-weight: 600;
 }
 
 .quantity-btn:hover {
@@ -707,8 +716,8 @@ h1, h2, h3, h4, h5, h6 {
   width: 60px;
   height: 44px;
   text-align: center;
-  font-family: var(--font-mono);
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-weight: 600;
   background: var(--color-surface);
   border: none;
   font-size: var(--text-base);
@@ -735,15 +744,16 @@ h1, h2, h3, h4, h5, h6 {
 .section-title {
   font-family: var(--font-heading);
   font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));
-  font-weight: 900;
+  font-weight: 800;
   color: var(--color-text);
   margin-bottom: var(--space-3);
-  line-height: 1.15;
-  text-transform: uppercase;
+  line-height: 1.2;
+  text-transform: none;
+  letter-spacing: -0.02em;
 }
 
 .section-subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-base);
   color: var(--color-text-secondary);
   max-width: 600px;
@@ -850,23 +860,24 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   background: var(--color-surface);
-  border: 2px solid var(--color-text);
-  border-radius: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
-  box-shadow: 2px 2px 0px 0px var(--color-text);
+  box-shadow: var(--shadow-sm);
 }
 
 .theme-toggle:hover {
   background: var(--color-accent);
   color: white;
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px 0px var(--color-text);
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .theme-toggle:active {
-  transform: translate(2px, 2px);
-  box-shadow: none;
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .theme-toggle__icon {

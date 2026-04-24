@@ -2,43 +2,32 @@
 <html lang="{{ locale }}">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#00C4B4">
 
   <title>{{ page_title }}</title>
 
-  <!-- Fuentes neobrutalist del tema -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Shopify requerido -->
   {{ content_for_header }}
 
   <style>
-    /* ============================================================
-       NANO Tech Store — Checkout Neobrutalist
-       Paleta: Cyan bg | White surface | Teal accent | Dark borders
-       ============================================================ */
-
     :root {
-      --co-bg:        #B2EBF2;
-      --co-bg-alt:    #9DE4ED;
-      --co-surface:   #FFFFFF;
-      --co-accent:    #00C4B4;
+      --co-bg: #F7F8FA;
+      --co-bg-alt: #F0F1F3;
+      --co-surface: #FFFFFF;
+      --co-accent: #00C4B4;
       --co-accent-hv: #00A89A;
-      --co-text:      #1F2937;
-      --co-muted:     #6B7280;
-      --co-border:    #1F2937;
-      --co-error:     #EF4444;
-      --co-success:   #10B981;
-      --sh-sm: 2px 2px 0px 0px #1F2937;
-      --sh-md: 4px 4px 0px 0px #1F2937;
-      --sh-lg: 6px 6px 0px 0px #1F2937;
-      --sh-accent: 4px 4px 0px 0px #00C4B4;
+      --co-text: #1F2937;
+      --co-muted: #6B7280;
+      --co-border: #E5E7EB;
+      --co-error: #EF4444;
+      --co-success: #10B981;
     }
 
-    /* ── Reset base ── */
     *, *::before, *::after { box-sizing: border-box; }
 
     body {
@@ -48,71 +37,48 @@
       margin: 0;
     }
 
-    /* ── Fondo global de la página ── */
     .page__bg,
     .page-wrap { background-color: var(--co-bg) !important; }
 
-    /* ============================================================
-       HEADER — Logo + breadcrumb de pasos
-       ============================================================ */
     .banner {
-      background: var(--co-text) !important;
-      border-bottom: 3px solid var(--co-text) !important;
+      background: var(--co-surface) !important;
+      border-bottom: 1px solid var(--co-border) !important;
       padding: 16px 0 !important;
     }
 
     .header--logo .header__logo-image {
-      max-height: 48px !important;
-      filter: brightness(0) invert(1); /* Logo blanco sobre fondo dark */
+      max-height: 44px !important;
     }
 
     .header__logo-link { display: flex; align-items: center; gap: 10px; }
-    .header__logo-link::before {
-      content: '> NANO_';
-      font-family: 'DM Mono', monospace;
-      font-weight: 500;
-      color: var(--co-accent);
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-    }
+    .header__logo-link::before { content: none; }
 
-    /* Breadcrumb (Cart > Contact > Shipping > Payment) */
     .breadcrumb { padding: 14px 0 !important; }
-    .breadcrumb__item { font-family: 'DM Mono', monospace !important; font-size: 0.7rem !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; }
+    .breadcrumb__item { font-family: 'DM Sans', sans-serif !important; font-size: 0.75rem !important; letter-spacing: 0.02em !important; }
     .breadcrumb__item--current .breadcrumb__text { color: var(--co-accent) !important; font-weight: 700 !important; }
-    .breadcrumb__item--complete .breadcrumb__text { color: var(--co-text) !important; text-decoration: underline !important; }
+    .breadcrumb__item--complete .breadcrumb__text { color: var(--co-text) !important; }
     .breadcrumb__chevron-icon { color: var(--co-muted) !important; }
 
-    /* ============================================================
-       LAYOUT PRINCIPAL
-       ============================================================ */
-
-    /* Contenedor de pasos (izquierda) */
     .main {
       background: var(--co-surface) !important;
-      border-right: 2px solid var(--co-border) !important;
+      border-right: 1px solid var(--co-border) !important;
     }
 
-    /* Sidebar — resumen del pedido (derecha) */
     .sidebar {
       background: var(--co-bg-alt) !important;
-      border-left: 2px solid var(--co-border) !important;
+      border-left: 1px solid var(--co-border) !important;
     }
 
-    /* Dividers internos */
-    .section + .section { border-top: 2px solid var(--co-border) !important; }
+    .section + .section { border-top: 1px solid var(--co-border) !important; }
 
-    /* ============================================================
-       FORMULARIOS — Inputs neobrutalist
-       ============================================================ */
     .field__input,
     .field__input-wrapper .field__input,
     select.field__input,
     textarea.field__input {
       font-family: 'DM Sans', sans-serif !important;
       font-size: 0.95rem !important;
-      border: 2px solid var(--co-border) !important;
-      border-radius: 0 !important;
+      border: 1px solid var(--co-border) !important;
+      border-radius: 8px !important;
       background: var(--co-surface) !important;
       color: var(--co-text) !important;
       padding: 14px 12px !important;
@@ -124,125 +90,98 @@
     select.field__input:focus {
       outline: none !important;
       border-color: var(--co-accent) !important;
-      box-shadow: var(--sh-accent) !important;
+      box-shadow: 0 0 0 3px rgba(0,196,180,0.15) !important;
     }
 
     .field__label {
-      font-family: 'DM Mono', monospace !important;
-      font-size: 0.7rem !important;
-      font-weight: 500 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.06em !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 0.75rem !important;
+      font-weight: 600 !important;
       color: var(--co-muted) !important;
     }
 
-    /* Input con error */
     .field--error .field__input { border-color: var(--co-error) !important; }
-    .field__message--error { font-family: 'DM Mono', monospace !important; font-size: 0.75rem !important; }
 
-    /* Checkbox y radio */
     .radio-wrapper__input:checked + .radio-wrapper__label::before {
       border-color: var(--co-accent) !important;
       background: var(--co-accent) !important;
     }
+
     .content-box {
-      border: 2px solid var(--co-border) !important;
-      border-radius: 0 !important;
-      box-shadow: var(--sh-sm) !important;
+      border: 1px solid var(--co-border) !important;
+      border-radius: 8px !important;
+      box-shadow: none !important;
     }
-    .content-box__row + .content-box__row { border-top: 2px solid var(--co-border) !important; }
 
-    /* ============================================================
-       BOTONES PRINCIPALES
-       ============================================================ */
+    .content-box__row + .content-box__row { border-top: 1px solid var(--co-border) !important; }
 
-    /* Botón primario: Continuar / Pagar ahora */
     .btn,
     .step__footer__continue-btn,
     [data-osp-continue-button] {
-      font-family: 'DM Mono', monospace !important;
-      font-weight: 500 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.06em !important;
-      font-size: 0.8rem !important;
-      border-radius: 0 !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 0.9rem !important;
+      border-radius: 8px !important;
     }
 
     .btn--primary,
     .step__footer__continue-btn {
       background: var(--co-accent) !important;
       color: #FFFFFF !important;
-      border: 2px solid var(--co-border) !important;
-      box-shadow: var(--sh-md) !important;
-      transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+      border: none !important;
+      box-shadow: 0 4px 14px rgba(0,196,180,0.3) !important;
+      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease !important;
     }
 
     .btn--primary:hover,
     .step__footer__continue-btn:hover {
       background: var(--co-accent-hv) !important;
-      transform: translate(-2px, -2px) !important;
-      box-shadow: var(--sh-lg) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 6px 20px rgba(0,196,180,0.4) !important;
     }
 
-    .btn--primary:active,
-    .step__footer__continue-btn:active {
-      transform: translate(4px, 4px) !important;
-      box-shadow: none !important;
-    }
-
-    /* Botón secundario: Volver */
     .btn--secondary,
     .previous-link {
       color: var(--co-text) !important;
-      font-family: 'DM Mono', monospace !important;
-      font-size: 0.75rem !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.05em !important;
-      text-decoration: underline !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 0.85rem !important;
     }
 
     .btn--secondary:hover,
     .previous-link:hover { color: var(--co-accent) !important; }
 
-    /* ============================================================
-       RESUMEN DEL PEDIDO (sidebar)
-       ============================================================ */
-
-    .order-summary {
-      font-family: 'DM Sans', sans-serif !important;
-    }
+    .order-summary { font-family: 'DM Sans', sans-serif !important; }
 
     .order-summary__toggle {
       background: var(--co-bg-alt) !important;
-      border-bottom: 2px solid var(--co-border) !important;
-      font-family: 'DM Mono', monospace !important;
-      text-transform: uppercase !important;
-      font-size: 0.75rem !important;
-      letter-spacing: 0.06em !important;
+      border-bottom: 1px solid var(--co-border) !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 0.85rem !important;
     }
 
     .order-summary__toggle-icon { color: var(--co-accent) !important; }
 
     .product-thumbnail {
-      border: 2px solid var(--co-border) !important;
-      border-radius: 0 !important;
-      box-shadow: var(--sh-sm) !important;
+      border: 1px solid var(--co-border) !important;
+      border-radius: 8px !important;
+      box-shadow: none !important;
     }
 
     .product-thumbnail__quantity {
       background: var(--co-accent) !important;
       color: white !important;
-      font-family: 'DM Mono', monospace !important;
-      border-radius: 0 !important;
-      border: 2px solid var(--co-border) !important;
+      font-family: 'DM Sans', sans-serif !important;
+      border-radius: 50% !important;
+      border: none !important;
       font-weight: 700 !important;
-      min-width: 24px !important;
-      height: 24px !important;
+      min-width: 22px !important;
+      height: 22px !important;
+      font-size: 0.7rem !important;
     }
 
     .product__description__name {
-      font-family: 'Space Grotesk', sans-serif !important;
-      font-weight: 700 !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-weight: 600 !important;
       color: var(--co-text) !important;
     }
 
@@ -256,130 +195,94 @@
       color: var(--co-text) !important;
     }
 
-    .payment-due { border-top: 2px solid var(--co-border) !important; }
-    .payment-due__label { font-family: 'DM Mono', monospace !important; text-transform: uppercase !important; font-size: 0.75rem !important; letter-spacing: 0.06em !important; }
-    .payment-due__price { color: var(--co-accent) !important; font-size: 1.4rem !important; }
+    .payment-due { border-top: 1px solid var(--co-border) !important; }
+    .payment-due__label { font-family: 'DM Sans', sans-serif !important; font-size: 0.85rem !important; font-weight: 600 !important; }
+    .payment-due__price { color: var(--co-text) !important; font-size: 1.4rem !important; }
 
     .reduction-code__text { color: var(--co-success) !important; }
 
-    /* Campo de cupón */
-    .reduction-code-input { border: 2px solid var(--co-border) !important; border-radius: 0 !important; }
-    .reduction-code-btn { border: 2px solid var(--co-border) !important; border-radius: 0 !important; background: var(--co-surface) !important; font-family: 'DM Mono', monospace !important; text-transform: uppercase !important; box-shadow: var(--sh-sm) !important; }
-    .reduction-code-btn:hover { background: var(--co-bg) !important; transform: translate(-1px, -1px) !important; box-shadow: var(--sh-md) !important; }
+    .reduction-code-input { border: 1px solid var(--co-border) !important; border-radius: 8px !important; }
+    .reduction-code-btn { border: 1px solid var(--co-border) !important; border-radius: 8px !important; background: var(--co-surface) !important; font-family: 'DM Sans', sans-serif !important; font-weight: 600 !important; }
+    .reduction-code-btn:hover { background: var(--co-bg) !important; }
 
-    /* Separadores en el resumen */
-    .order-summary__section + .order-summary__section { border-top: 2px solid var(--co-border) !important; }
+    .order-summary__section + .order-summary__section { border-top: 1px solid var(--co-border) !important; }
 
-    /* ============================================================
-       MÉTODOS DE PAGO (iconos, paypal, etc.)
-       ============================================================ */
-    .radio-wrapper { border-radius: 0 !important; }
-    .payment-icon { border: 1px solid var(--co-border) !important; border-radius: 0 !important; }
+    .radio-wrapper { border-radius: 8px !important; }
+    .payment-icon { border: 1px solid var(--co-border) !important; border-radius: 4px !important; }
 
-    .notice { border: 2px solid var(--co-border) !important; border-radius: 0 !important; background: var(--co-bg-alt) !important; }
+    .notice { border: 1px solid var(--co-border) !important; border-radius: 8px !important; background: var(--co-bg-alt) !important; }
 
-    /* ============================================================
-       PÁGINA DE CONFIRMACIÓN (Thank you)
-       ============================================================ */
     .os-header {
-      background: var(--co-text) !important;
-      border-bottom: 3px solid var(--co-accent) !important;
+      background: var(--co-surface) !important;
+      border-bottom: 1px solid var(--co-border) !important;
     }
 
     .os-header__hanging-icon {
       background: var(--co-accent) !important;
-      border: 2px solid var(--co-border) !important;
-      box-shadow: var(--sh-sm) !important;
-      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: 0 4px 12px rgba(0,196,180,0.3) !important;
+      border-radius: 50% !important;
     }
 
     .os-header__title {
       font-family: 'Space Grotesk', sans-serif !important;
-      font-weight: 900 !important;
-      color: white !important;
+      font-weight: 700 !important;
+      color: var(--co-text) !important;
     }
 
     .os-order-number {
-      font-family: 'DM Mono', monospace !important;
+      font-family: 'DM Sans', sans-serif !important;
       color: var(--co-accent) !important;
-      font-weight: 500 !important;
+      font-weight: 600 !important;
     }
 
-    /* Timeline de pasos de la orden */
     .os-timeline-step__bubble {
       border: 2px solid var(--co-border) !important;
-      border-radius: 0 !important;
+      border-radius: 50% !important;
     }
 
     .os-timeline-step__bubble--completed,
-    .os-timeline-step__bubble--current { background: var(--co-accent) !important; }
+    .os-timeline-step__bubble--current { background: var(--co-accent) !important; border-color: var(--co-accent) !important; }
 
-    /* ============================================================
-       FOOTER
-       ============================================================ */
     .footer {
-      border-top: 2px solid var(--co-border) !important;
-      background: var(--co-text) !important;
-      color: #9CA3AF !important;
+      border-top: 1px solid var(--co-border) !important;
+      background: var(--co-surface) !important;
+      color: var(--co-muted) !important;
     }
 
     .footer a { color: var(--co-accent) !important; }
     .footer a:hover { text-decoration: underline !important; }
 
-    /* ============================================================
-       MOBILE
-       ============================================================ */
     @media (max-width: 749px) {
       .main { border-right: none !important; }
-      .sidebar { border-left: none !important; border-top: 2px solid var(--co-border) !important; }
+      .sidebar { border-left: none !important; border-top: 1px solid var(--co-border) !important; }
     }
   </style>
 </head>
 
 <body>
-  <!--
-    CHECKOUT.LIQUID — NANO Tech Store (Shopify Plus)
-    Layout neobrutalist alineado con el tema principal.
-    content_for_layout → Shopify renderiza los pasos del checkout aquí.
-  -->
-
-  <!-- Header personalizado -->
   <header class="banner" role="banner">
     <div class="wrap">
-      <div class="page-width">
-        <div class="logo-and-breadcrumb">
-          <!-- Logo -->
-          <div class="logo-header" itemscope itemtype="http://schema.org/Organization">
-            <a href="{{ shop.url }}" class="header__logo-link" itemprop="url">
-              {%- if checkout.logo -%}
-                <img
-                  class="header__logo-image"
-                  src="{{ checkout.logo | img_url: '200x' }}"
-                  alt="{{ shop.name }}"
-                  itemprop="logo"
-                >
-              {%- else -%}
-                <span class="header__logo-text" style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:white;font-size:1.25rem;letter-spacing:-0.02em;">
-                  {{ shop.name | upcase }}
-                </span>
-              {%- endif -%}
-            </a>
-          </div>
-        </div>
-      </div>
+      {%- if checkout.logo -%}
+        <a href="{{ shop.url }}" class="header__logo-link">
+          <img src="{{ checkout.logo | img_url: '200x' }}" alt="{{ shop.name }}" class="header__logo-image" width="200" height="60" loading="eager">
+        </a>
+      {%- else -%}
+        <a href="{{ shop.url }}" class="header__logo-link">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:var(--co-text);">{{ shop.name }}</span>
+        </a>
+      {%- endif -%}
     </div>
   </header>
 
-  <!-- Shopify renderiza aquí: breadcrumb, formularios de pasos, confirmación -->
   <main role="main">
     {{ content_for_layout }}
   </main>
 
-  <!-- Footer mínimo -->
   <footer class="footer" role="contentinfo">
-    <div class="page-width" style="padding:20px 0;text-align:center;">
-      <p style="font-family:'DM Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:#9CA3AF;margin:0;">
-        © {{ 'now' | date: '%Y' }} {{ shop.name }}
+    <div class="wrap" style="padding:20px;text-align:center;">
+      <p style="font-family:'DM Sans',sans-serif;font-size:0.75rem;color:var(--co-muted);margin:0;">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
         &nbsp;|&nbsp;
         <a href="{{ shop.privacy_policy.url }}">Privacidad</a>
         &nbsp;|&nbsp;
