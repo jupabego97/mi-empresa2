@@ -313,40 +313,34 @@
   // ============================================
   const QuantityManager = {
     init() {
-      // Solo manejar selectores de cantidad en páginas de producto
-      // El carrito tiene su propio sistema de manejo
       document.addEventListener('click', (e) => {
         const btn = e.target.closest('.quantity-btn, [data-action="minus"], [data-action="plus"]');
         if (!btn) return;
-        
-        // IMPORTANTE: NO manejar NADA relacionado con el carrito
+
+        if (btn.closest('.product-page')) return;
         if (btn.closest('.cart-item')) return;
         if (btn.closest('.cart-section')) return;
         if (btn.closest('[data-cart-items]')) return;
         if (document.body.classList.contains('template-cart')) return;
-        
-        // NO manejar botones con data-action="decrease", "increase" o "remove"
+
         const action = btn.dataset.action;
         if (action === 'decrease' || action === 'increase' || action === 'remove') return;
-        
+
         const container = btn.closest('.quantity-selector') || btn.parentElement;
         const input = container.querySelector('.quantity-input, input[type="number"]');
         if (!input) return;
-        
-        // Si el input está dentro del carrito, no hacer nada
         if (input.closest('.cart-item') || input.closest('.cart-section')) return;
-        
+
         let value = parseInt(input.value) || 1;
         const btnAction = action || (btn.classList.contains('quantity-btn--minus') ? 'minus' : 'plus');
-        
+
         if (btnAction === 'minus') {
           value = Math.max(1, value - 1);
         } else {
           value = value + 1;
         }
-        
+
         input.value = value;
-        // NO disparar evento change para evitar conflictos
       });
     }
   };
