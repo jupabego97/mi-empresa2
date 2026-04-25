@@ -90,12 +90,13 @@
                         {%- endif -%}
                         <h3 class="product-card-title">{{ item.title }}</h3>
                         <div class="product-card-price">
-                          {%- if item.compare_at_price > item.price -%}
-                            <span class="price-compare">{{ item.compare_at_price | money }}</span>
-                          {%- endif -%}
                           <span class="price{% if item.compare_at_price > item.price %} price--sale{% endif %}">
                             {{ item.price | money }}
                           </span>
+                          {%- if item.compare_at_price > item.price -%}
+                            <span class="price-compare">{{ item.compare_at_price | money }}</span>
+                            <span class="price-save">Ahorra {{ item.compare_at_price | minus: item.price | money }}</span>
+                          {%- endif -%}
                         </div>
                       </div>
                     </a>

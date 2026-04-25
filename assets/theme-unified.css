@@ -740,6 +740,83 @@ input:focus, select:focus, textarea:focus {
 }
 .collection-link-text { color: #fff !important; font-weight: 600 !important; }
 
+/* ── 15.5. Precios unificados (home, catálogo, búsqueda, recs) ─ */
+.product-card__price,
+.product-card-price,
+.collection-section .product-card-price,
+.search-results .product-card-price,
+.recommendations-section .product-card-price {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-top: auto !important;
+  padding-top: 10px !important;
+  border-top: 1px solid var(--u-border-c) !important;
+}
+
+/* Precio actual */
+.product-card__price-current,
+.collection-section .price,
+.search-results .price,
+.recommendations-section .price {
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif) !important;
+  font-size: 1.125rem !important;     /* 18px */
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--u-text) !important;
+  line-height: 1 !important;
+}
+
+/* Precio actual cuando hay descuento → rojo "deal" */
+.product-card__price-current--sale,
+.collection-section .price--sale,
+.search-results .price--sale,
+.recommendations-section .price--sale {
+  color: #DC2626 !important;
+}
+
+/* Precio tachado */
+.product-card__price-compare,
+.collection-section .price-compare,
+.search-results .price-compare,
+.recommendations-section .price-compare {
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif) !important;
+  font-size: 0.875rem !important;     /* 14px */
+  font-weight: 500 !important;
+  color: var(--u-muted) !important;
+  text-decoration: line-through !important;
+  line-height: 1 !important;
+}
+
+/* Chip "Ahorra $X" verde */
+.product-card__price-save,
+.collection-section .price-save,
+.search-results .price-save,
+.recommendations-section .price-save {
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  color: #15803D !important;
+  background: rgba(22, 163, 74, 0.12) !important;
+  padding: 4px 8px !important;
+  border-radius: 999px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 480px) {
+  .product-card__price-current,
+  .collection-section .price,
+  .search-results .price,
+  .recommendations-section .price { font-size: 1rem !important; }
+  .product-card__price-save,
+  .collection-section .price-save,
+  .search-results .price-save,
+  .recommendations-section .price-save { font-size: 0.65rem !important; padding: 3px 7px !important; }
+}
+
 /* ── 16. Recommendations / "También te puede interesar" ────── */
 .recommendations-section { background: var(--u-bg) !important; }
 .recommendations-title { letter-spacing: -0.02em !important; }
