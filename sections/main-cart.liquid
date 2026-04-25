@@ -8,6 +8,28 @@
     </header>
 
     {%- if cart.item_count > 0 -%}
+      {%- comment -%} Free Shipping Bar — incentivo de conversión {%- endcomment -%}
+      {%- assign threshold_cents = section.settings.free_shipping_threshold | default: 100000 | times: 100 -%}
+      {%- assign current_total = cart.total_price -%}
+      {%- assign remaining = threshold_cents | minus: current_total -%}
+      {%- assign progress = current_total | times: 100 | divided_by: threshold_cents -%}
+      {%- if progress > 100 -%}{%- assign progress = 100 -%}{%- endif -%}
+
+      <div class="free-shipping-bar {% if remaining <= 0 %}free-shipping-bar--success{% endif %}" role="status" aria-live="polite">
+        <div class="free-shipping-bar__title">
+          {%- if remaining > 0 -%}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Te faltan <strong>{{ remaining | money }}</strong> para envío gratis
+          {%- else -%}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            ¡Felicidades! Tienes <strong>envío gratis</strong>
+          {%- endif -%}
+        </div>
+        <div class="free-shipping-bar__progress">
+          <div class="free-shipping-bar__progress-fill" style="width: {{ progress }}%;"></div>
+        </div>
+      </div>
+
       <div class="cart-content">
         <div class="cart-items-wrapper">
           <form action="{{ routes.cart_url }}" method="post" class="cart-form" id="cart-form">
@@ -976,6 +998,13 @@
       "id": "show_vendor",
       "label": "Mostrar marca del producto",
       "default": true
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "label": "Umbral de envío gratis (sin centavos)",
+      "default": 100000,
+      "info": "Monto mínimo del carrito para envío gratis. La barra de progreso se calcula automáticamente."
     }
   ]
 }

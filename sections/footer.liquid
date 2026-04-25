@@ -3,6 +3,29 @@
   Con elementos hand-drawn y newsletter anti-grid
 {% endcomment %}
 
+{%- if section.settings.show_trust_bar -%}
+  <div class="footer-trust-bar" aria-label="Garantías de la tienda">
+    <div class="footer-trust-bar__inner">
+      <div class="footer-trust-bar__item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>Envío gratis +$100k</span>
+      </div>
+      <div class="footer-trust-bar__item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Garantía 6 meses</span>
+      </div>
+      <div class="footer-trust-bar__item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        <span>30 días de devolución</span>
+      </div>
+      <div class="footer-trust-bar__item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Pago 100% seguro</span>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
 <footer class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer" itemscope itemtype="https://schema.org/WPFooter">
   <div class="footer__container">
     
@@ -695,6 +718,12 @@
       "type": "checkbox",
       "id": "show_payment_icons",
       "label": "Mostrar iconos de métodos de pago",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Mostrar barra de garantías arriba del footer",
       "default": true
     }
   ]

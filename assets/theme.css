@@ -42,6 +42,16 @@
   --color-success: #10B981;
   --color-error: #EF4444;
   --color-warning: #F59E0B;
+  --color-success-light: rgba(16, 185, 129, 0.10);
+  --color-error-light:   rgba(239, 68, 68, 0.10);
+  --color-warning-light: rgba(245, 158, 11, 0.12);
+
+  /* Aliases para secciones que usan otros nombres */
+  --color-secondary:        #38BDF8;
+  --color-secondary-light:  rgba(56, 189, 248, 0.12);
+  --color-border-accent:    var(--color-accent);
+  --gradient-primary: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  --gradient-tech:    linear-gradient(135deg, var(--color-accent) 0%, #38BDF8 100%);
 
   /* Tipografía */
   --font-heading: 'Space Grotesk', -apple-system, sans-serif;
