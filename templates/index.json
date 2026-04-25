@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -13,15 +22,19 @@
       "type": "featured-products",
       "settings": {
         "title": "Catálogo Destacado",
+        "collection": "catalogo-destacado",
         "products_to_show": 9,
+        "show_vendor": true,
         "show_view_all": true
       }
     },
     "benefits": {
       "type": "benefits",
       "settings": {
+        "eyebrow": "¿Por qué elegirnos?",
         "title": "¿Por qué comprar con nosotros?",
-        "subtitle": "Tu satisfacción es nuestra prioridad"
+        "subtitle": "Tu satisfacción es nuestra prioridad",
+        "show_stats": true
       }
     }
   },
