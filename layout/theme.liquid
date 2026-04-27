@@ -267,6 +267,10 @@
   {{ 'theme-extras-clean.css' | asset_url | stylesheet_tag }}
   {{ 'theme-unified.css' | asset_url | stylesheet_tag }}
 
+  <!-- Cart Drawer (lateral, AJAX) -->
+  {% render 'cart-drawer' %}
+  <script src="{{ 'cart-drawer.js' | asset_url }}" defer></script>
+
   <!-- WhatsApp flotante (conversión) -->
   {%- if settings.social_whatsapp_link != blank -%}
     <a href="{{ settings.social_whatsapp_link }}" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chatear por WhatsApp">

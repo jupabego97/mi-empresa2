@@ -1,0 +1,346 @@
+{% comment %}
+  Cart Drawer - Drawer lateral de carrito (AJAX).
+  Inicialmente se renderiza con el estado actual del cart; se actualiza vía JS.
+{% endcomment %}
+
+{%- assign free_shipping_threshold = 100000 -%}
+{%- assign cart_total_pesos = cart.total_price | divided_by: 100 -%}
+{%- assign progress = cart_total_pesos | times: 100 | divided_by: free_shipping_threshold -%}
+{%- if progress > 100 -%}{%- assign progress = 100 -%}{%- endif -%}
+{%- assign falta = free_shipping_threshold | minus: cart_total_pesos -%}
+
+<aside class="cd" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Tu carrito" aria-hidden="true" data-cart-drawer>
+  <div class="cd__backdrop" data-cd-close></div>
+  <div class="cd__panel" data-cd-panel>
+    <header class="cd__header">
+      <h2 class="cd__title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Tu carrito
+        <span class="cd__count" data-cd-count>{{ cart.item_count }}</span>
+      </h2>
+      <button type="button" class="cd__close" data-cd-close aria-label="Cerrar carrito">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+
+    <div class="cd__progress" data-cd-progress aria-hidden="{% if cart.item_count == 0 %}true{% else %}false{% endif %}">
+      <p class="cd__progress-text" data-cd-progress-text>
+        {%- if falta > 0 and cart.item_count > 0 -%}
+          Te faltan <strong>${{ falta | money_without_currency }}</strong> para envío gratis
+        {%- elsif cart.item_count > 0 -%}
+          ¡Felicidades! Tienes <strong>envío gratis</strong>
+        {%- else -%}
+          Envío gratis desde $100.000
+        {%- endif -%}
+      </p>
+      <div class="cd__progress-bar"><div class="cd__progress-fill" data-cd-progress-fill style="width: {{ progress }}%"></div></div>
+    </div>
+
+    <div class="cd__body" data-cd-body>
+      {%- if cart.item_count > 0 -%}
+        <ul class="cd__items" data-cd-items>
+          {%- for item in cart.items -%}
+            <li class="cd-item" data-cd-item data-key="{{ item.key }}" data-line="{{ forloop.index }}">
+              <a href="{{ item.url }}" class="cd-item__media">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.product.title | escape }}" width="80" height="80" loading="lazy">
+                {%- endif -%}
+              </a>
+              <div class="cd-item__body">
+                <a href="{{ item.url }}" class="cd-item__title">{{ item.product.title }}</a>
+                {%- unless item.variant.title contains 'Default' -%}
+                  <span class="cd-item__variant">{{ item.variant.title }}</span>
+                {%- endunless -%}
+                <div class="cd-item__row">
+                  <div class="cd-item__qty">
+                    <button type="button" class="cd-item__qty-btn" data-cd-decrease aria-label="Disminuir">−</button>
+                    <input type="number" class="cd-item__qty-input" value="{{ item.quantity }}" min="0" data-cd-qty>
+                    <button type="button" class="cd-item__qty-btn" data-cd-increase aria-label="Aumentar">+</button>
+                  </div>
+                  <span class="cd-item__price">{{ item.final_line_price | money }}</span>
+                </div>
+              </div>
+              <button type="button" class="cd-item__remove" data-cd-remove aria-label="Eliminar producto">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <div class="cd__empty" data-cd-empty>
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <p class="cd__empty-title">Tu carrito está vacío</p>
+          <p class="cd__empty-text">Explora nuestros productos y agrégalos al carrito.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="cd__empty-cta" data-cd-close>Ver catálogo</a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <footer class="cd__footer" data-cd-footer {% if cart.item_count == 0 %}hidden{% endif %}>
+      <div class="cd__row">
+        <span>Subtotal</span>
+        <strong data-cd-subtotal>{{ cart.total_price | money }}</strong>
+      </div>
+      <p class="cd__note">Impuestos y envío se calculan en el checkout.</p>
+      <a href="{{ routes.cart_url }}/checkout" class="cd__checkout-btn">
+        Finalizar compra
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="cd__view-cart">Ver carrito completo</a>
+    </footer>
+  </div>
+</aside>
+
+<style>
+  .cd {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: none;
+  }
+  .cd.is-open { display: block; }
+  .cd__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    animation: cd-fade .25s ease;
+  }
+  .cd__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: min(420px, 100%);
+    background: var(--color-bg, #fff);
+    color: var(--color-text, #111);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.18);
+    transform: translateX(100%);
+    transition: transform .3s ease;
+  }
+  .cd.is-open .cd__panel { transform: translateX(0); }
+  @keyframes cd-fade { from { opacity: 0 } to { opacity: 1 } }
+
+  .cd__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border, #E5E7EB);
+  }
+  .cd__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .cd__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--color-accent, #00C4B4);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .cd__close {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-surface, #F3F4F6);
+    color: var(--color-text, #111);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s ease;
+  }
+  .cd__close:hover { background: var(--color-border, #E5E7EB); }
+
+  .cd__progress {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--color-border, #E5E7EB);
+    background: linear-gradient(180deg, rgba(0,196,180,0.04), transparent);
+  }
+  .cd__progress[aria-hidden="true"] { display: none; }
+  .cd__progress-text { margin: 0 0 8px; font-size: 13px; color: var(--color-text-muted, #6B7280); }
+  .cd__progress-text strong { color: var(--color-text, #111); }
+  .cd__progress-bar { height: 6px; background: var(--color-surface, #F3F4F6); border-radius: 999px; overflow: hidden; }
+  .cd__progress-fill { height: 100%; background: var(--color-accent, #00C4B4); transition: width .3s ease; border-radius: 999px; }
+
+  .cd__body { flex: 1; overflow-y: auto; padding: 8px 20px; }
+  .cd__items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; padding-top: 12px; }
+
+  .cd-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 12px;
+    align-items: stretch;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--color-border, #E5E7EB);
+  }
+  .cd-item:last-child { border-bottom: 0; }
+  .cd-item__media {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--color-surface, #F3F4F6);
+    flex-shrink: 0;
+  }
+  .cd-item__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cd-item__body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .cd-item__title { font-size: 14px; font-weight: 600; color: var(--color-text, #111); text-decoration: none; line-height: 1.25; }
+  .cd-item__title:hover { color: var(--color-accent, #00C4B4); }
+  .cd-item__variant { font-size: 12px; color: var(--color-text-muted, #6B7280); }
+  .cd-item__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; }
+  .cd-item__qty {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-border, #E5E7EB);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .cd-item__qty-btn {
+    width: 28px;
+    height: 28px;
+    border: 0;
+    background: transparent;
+    color: var(--color-text, #111);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+  .cd-item__qty-btn:hover { background: var(--color-surface, #F3F4F6); }
+  .cd-item__qty-input {
+    width: 32px;
+    height: 28px;
+    text-align: center;
+    border: 0;
+    border-left: 1px solid var(--color-border, #E5E7EB);
+    border-right: 1px solid var(--color-border, #E5E7EB);
+    background: transparent;
+    color: var(--color-text, #111);
+    font-size: 13px;
+    font-weight: 600;
+    -moz-appearance: textfield;
+  }
+  .cd-item__qty-input::-webkit-outer-spin-button,
+  .cd-item__qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .cd-item__price { font-size: 14px; font-weight: 700; color: var(--color-text, #111); }
+  .cd-item__remove {
+    width: 28px;
+    height: 28px;
+    border: 0;
+    background: transparent;
+    color: var(--color-text-muted, #9CA3AF);
+    cursor: pointer;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .2s ease, background .2s ease;
+    align-self: start;
+  }
+  .cd-item__remove:hover { color: #EF4444; background: rgba(239,68,68,0.08); }
+
+  .cd__empty { text-align: center; padding: 48px 16px; color: var(--color-text-muted, #6B7280); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .cd__empty-title { font-size: 16px; font-weight: 700; color: var(--color-text, #111); margin: 8px 0 0; }
+  .cd__empty-text { font-size: 14px; margin: 0 0 6px; }
+  .cd__empty-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background: var(--color-accent, #00C4B4);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 999px;
+    margin-top: 8px;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .cd__empty-cta:hover { transform: translateY(-1px); background: var(--color-accent-hover, #009E92); }
+
+  .cd__footer {
+    border-top: 1px solid var(--color-border, #E5E7EB);
+    padding: 16px 20px 22px;
+    background: var(--color-bg, #fff);
+  }
+  .cd__row { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; }
+  .cd__row strong { font-size: 18px; font-weight: 700; }
+  .cd__note { font-size: 12px; color: var(--color-text-muted, #6B7280); margin: 4px 0 12px; }
+  .cd__checkout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 13px 20px;
+    background: var(--color-accent, #00C4B4);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 12px;
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+    box-shadow: 0 6px 16px rgba(0,196,180,0.3);
+  }
+  .cd__checkout-btn:hover { background: var(--color-accent-hover, #009E92); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,196,180,0.4); }
+  .cd__view-cart {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--color-text-muted, #6B7280);
+    text-decoration: none;
+  }
+  .cd__view-cart:hover { color: var(--color-accent, #00C4B4); text-decoration: underline; }
+
+  body.cd-open { overflow: hidden; }
+
+  /* Toast feedback */
+  .cd-toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1300;
+    background: var(--color-text, #111827);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transform: translateX(120%);
+    opacity: 0;
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  .cd-toast.is-show { transform: translateX(0); opacity: 1; }
+  .cd-toast--success { background: #10B981; }
+  .cd-toast--error { background: #EF4444; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cd__panel, .cd__backdrop, .cd-toast { transition: none; animation: none; }
+  }
+
+  [data-theme="dark"] .cd__panel { background: #1F2937; color: #F3F4F6; }
+  [data-theme="dark"] .cd__close { background: #374151; color: #F3F4F6; }
+  [data-theme="dark"] .cd__close:hover { background: #4B5563; }
+  [data-theme="dark"] .cd-item__qty { border-color: #374151; }
+  [data-theme="dark"] .cd-item__qty-input { color: #F3F4F6; border-color: #374151; }
+  [data-theme="dark"] .cd-item__qty-btn { color: #F3F4F6; }
+  [data-theme="dark"] .cd-item__qty-btn:hover { background: #374151; }
+  [data-theme="dark"] .cd__progress-bar { background: #374151; }
+  [data-theme="dark"] .cd__footer { background: #1F2937; border-color: #374151; }
+</style>
