@@ -1,0 +1,274 @@
+{% comment %}
+  Newsletter Incentive - Sección de captura de email con descuento de bienvenida
+{% endcomment %}
+
+<section class="nl-section" data-section-id="{{ section.id }}" data-section-type="newsletter-incentive"
+  {% if section.settings.bg_image != blank %}style="background-image: linear-gradient(135deg, rgba(0,196,180,0.85), rgba(45,212,191,0.65)), url('{{ section.settings.bg_image | image_url: width: 1600 }}'); background-size: cover; background-position: center;"{% endif %}>
+  <div class="nl-section__container">
+    <div class="nl-section__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="nl-section__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="nl-section__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="nl-section__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.discount_label != blank -%}
+        <div class="nl-section__discount">
+          <span class="nl-section__discount-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>
+          </span>
+          <span class="nl-section__discount-text">{{ section.settings.discount_label }}</span>
+        </div>
+      {%- endif -%}
+
+      {% form 'customer', class: 'nl-form' %}
+        {%- if form.posted_successfully? -%}
+          <div class="nl-form__success" role="status">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ section.settings.success_message | default: '¡Gracias! Revisa tu correo para activar el descuento.' }}</span>
+          </div>
+        {%- elsif form.errors -%}
+          <div class="nl-form__error" role="alert">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="hidden" name="contact[accepts_marketing]" value="1">
+        <div class="nl-form__row">
+          <label for="nl-email-{{ section.id }}" class="visually-hidden">Email</label>
+          <input
+            type="email"
+            id="nl-email-{{ section.id }}"
+            name="contact[email]"
+            required
+            autocomplete="email"
+            placeholder="{{ section.settings.placeholder | default: 'tucorreo@email.com' }}"
+            class="nl-form__input">
+          <button type="submit" class="nl-form__submit">
+            {{ section.settings.button_label | default: 'Quiero mi descuento' }}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+        <p class="nl-form__legal">{{ section.settings.legal_text | default: 'Sin spam. Cancela cuando quieras.' }}</p>
+      {% endform %}
+
+      {%- if section.settings.show_perks -%}
+        <ul class="nl-section__perks">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Acceso anticipado a ofertas</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tips y novedades</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Sin spam, garantizado</li>
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .nl-section {
+    background: linear-gradient(135deg, var(--color-accent, #00C4B4) 0%, #2DD4BF 100%);
+    color: #fff;
+    padding: clamp(56px, 9vw, 110px) 0;
+  }
+  .nl-section__container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding, 24px);
+    text-align: center;
+  }
+  .nl-section__eyebrow {
+    display: inline-block;
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .nl-section__title {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: clamp(28px, 4.4vw, 44px);
+    font-weight: 700;
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+  .nl-section__subtitle {
+    font-size: 16px;
+    opacity: 0.92;
+    margin: 0 0 18px;
+    line-height: 1.55;
+  }
+  .nl-section__discount {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+  .nl-section__discount-icon { display: inline-flex; }
+
+  .nl-form {
+    margin: 0 auto;
+    max-width: 520px;
+  }
+  .nl-form__row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    background: #fff;
+    border-radius: 999px;
+    padding: 6px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  }
+  .nl-form__input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    padding: 12px 18px;
+    font-size: 15px;
+    color: #111827;
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+  }
+  .nl-form__input::placeholder { color: #9CA3AF; }
+  .nl-form__submit {
+    border: 0;
+    background: var(--color-text, #0F172A);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .2s ease, transform .2s ease;
+    white-space: nowrap;
+  }
+  .nl-form__submit:hover { background: #1F2937; transform: translateY(-1px); }
+  .nl-form__legal { font-size: 12px; opacity: 0.85; margin: 12px 0 0; }
+  .nl-form__success,
+  .nl-form__error {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px 16px;
+    border-radius: 999px;
+    margin: 0 auto 14px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .nl-form__error { background: rgba(255,99,99,0.25); border-color: rgba(255,99,99,0.45); }
+
+  .nl-section__perks {
+    list-style: none;
+    padding: 0;
+    margin: 22px 0 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.95;
+  }
+  .nl-section__perks li { display: inline-flex; align-items: center; gap: 4px; }
+
+  @media (max-width: 600px) {
+    .nl-form__row { flex-direction: column; border-radius: 16px; padding: 8px; gap: 6px; }
+    .nl-form__input { padding: 12px 14px; }
+    .nl-form__submit { width: 100%; justify-content: center; padding: 12px; }
+    .nl-section__perks { flex-direction: column; gap: 6px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter incentivo",
+  "tag": "section",
+  "class": "section-newsletter-incentive",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Imagen de fondo (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Pretítulo",
+      "default": "Únete al club"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "10% de descuento en tu primera compra"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Suscríbete y te enviamos un cupón exclusivo, además de novedades y ofertas antes que nadie."
+    },
+    {
+      "type": "text",
+      "id": "discount_label",
+      "label": "Etiqueta del descuento",
+      "default": "Cupón BIENVENIDA10 al instante"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder del input",
+      "default": "tucorreo@email.com"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Quiero mi descuento"
+    },
+    {
+      "type": "text",
+      "id": "legal_text",
+      "label": "Texto legal",
+      "default": "Sin spam. Cancela cuando quieras."
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Mensaje de éxito",
+      "default": "¡Gracias! Revisa tu correo para activar el descuento."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_perks",
+      "label": "Mostrar lista de beneficios",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter incentivo",
+      "category": "Promociones"
+    }
+  ]
+}
+{% endschema %}

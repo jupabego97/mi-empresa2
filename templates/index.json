@@ -53,6 +53,18 @@
         "show_stats": true
       }
     },
+    "newsletter-incentive": {
+      "type": "newsletter-incentive",
+      "settings": {
+        "eyebrow": "Únete al club",
+        "title": "10% de descuento en tu primera compra",
+        "subtitle": "Suscríbete y recibe un cupón exclusivo, además de ofertas y novedades antes que nadie.",
+        "discount_label": "Cupón BIENVENIDA10 al instante",
+        "button_label": "Quiero mi descuento",
+        "legal_text": "Sin spam. Cancela cuando quieras.",
+        "show_perks": true
+      }
+    },
     "testimonials": {
       "type": "testimonials",
       "blocks": {
@@ -77,6 +89,7 @@
     "categories-grid",
     "featured-products",
     "benefits",
-    "testimonials"
+    "testimonials",
+    "newsletter-incentive"
   ]
 }
