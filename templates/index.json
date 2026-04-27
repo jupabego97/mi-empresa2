@@ -18,6 +18,22 @@
         "button_link": "shopify://collections/all"
       }
     },
+    "categories-grid": {
+      "type": "categories-grid",
+      "blocks": {
+        "cat-1": { "type": "category", "settings": { "show_count": true } },
+        "cat-2": { "type": "category", "settings": { "show_count": true } },
+        "cat-3": { "type": "category", "settings": { "show_count": true } },
+        "cat-4": { "type": "category", "settings": { "show_count": true } }
+      },
+      "block_order": ["cat-1", "cat-2", "cat-3", "cat-4"],
+      "settings": {
+        "eyebrow": "Explora la tienda",
+        "title": "Compra por categoría",
+        "subtitle": "Encuentra exactamente lo que buscas",
+        "layout": "grid"
+      }
+    },
     "featured-products": {
       "type": "featured-products",
       "settings": {
@@ -40,6 +56,7 @@
   },
   "order": [
     "hero",
+    "categories-grid",
     "featured-products",
     "benefits"
   ]

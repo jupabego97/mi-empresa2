@@ -1,0 +1,339 @@
+{% comment %}
+  Categories Grid - Sección de categorías con imágenes
+  Inspirada en MAC Center / Leonisa
+{% endcomment %}
+
+<section class="cat-grid" data-section-id="{{ section.id }}" data-section-type="categories-grid">
+  <div class="cat-grid__container">
+    {%- if section.settings.eyebrow != blank or section.settings.title != blank -%}
+      <header class="cat-grid__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="cat-grid__eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="cat-grid__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="cat-grid__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- assign cat_blocks = section.blocks -%}
+    {%- if cat_blocks.size > 0 -%}
+      <div class="cat-grid__items cat-grid__items--{{ section.settings.layout | default: 'grid' }}">
+        {%- for block in cat_blocks -%}
+          {%- assign target_collection = collections[block.settings.collection] -%}
+          {%- assign target_url = block.settings.link | default: target_collection.url -%}
+          {%- assign target_image = block.settings.image | default: target_collection.image -%}
+          {%- assign target_title = block.settings.title | default: target_collection.title -%}
+          {%- assign target_count = target_collection.products_count -%}
+
+          <a href="{{ target_url | default: routes.all_products_collection_url }}"
+             class="cat-card{% if block.settings.featured %} cat-card--featured{% endif %}"
+             {{ block.shopify_attributes }}>
+            <div class="cat-card__media">
+              {%- if target_image != blank -%}
+                <img
+                  src="{{ target_image | image_url: width: 600 }}"
+                  alt="{{ target_title | escape }}"
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                  class="cat-card__image">
+              {%- else -%}
+                <div class="cat-card__placeholder" aria-hidden="true">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                  </svg>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.badge != blank -%}
+                <span class="cat-card__badge">{{ block.settings.badge }}</span>
+              {%- endif -%}
+            </div>
+            <div class="cat-card__body">
+              <h3 class="cat-card__title">{{ target_title }}</h3>
+              {%- if block.settings.show_count and target_count -%}
+                <span class="cat-card__count">{{ target_count }} productos</span>
+              {%- endif -%}
+              <span class="cat-card__cta">
+                Explorar
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="cat-grid__empty">Agrega bloques de categoría desde el editor para mostrar este módulo.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .cat-grid {
+    background: var(--color-bg, #fff);
+    padding: clamp(48px, 8vw, 96px) 0;
+  }
+  .cat-grid__container {
+    max-width: var(--container-max, 1280px);
+    margin: 0 auto;
+    padding: 0 var(--container-padding, 24px);
+  }
+  .cat-grid__header {
+    text-align: center;
+    margin: 0 auto clamp(24px, 4vw, 48px);
+    max-width: 720px;
+  }
+  .cat-grid__eyebrow {
+    display: inline-block;
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--color-accent, #00C4B4);
+    margin-bottom: 8px;
+  }
+  .cat-grid__title {
+    font-family: var(--font-heading, 'Space Grotesk', system-ui, sans-serif);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--color-text, #111827);
+    line-height: 1.15;
+  }
+  .cat-grid__subtitle {
+    font-size: 16px;
+    color: var(--color-text-muted, #6B7280);
+    margin: 0;
+  }
+
+  .cat-grid__items {
+    display: grid;
+    gap: 18px;
+  }
+  .cat-grid__items--grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .cat-grid__items--mosaic {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+  }
+  .cat-grid__items--mosaic .cat-card:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .cat-grid__items--mosaic .cat-card:nth-child(4) { grid-column: span 2; }
+
+  .cat-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-surface, #F9FAFB);
+    text-decoration: none;
+    color: var(--color-text, #111827);
+    transition: transform .3s ease, box-shadow .3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+  }
+  .cat-card:hover .cat-card__image {
+    transform: scale(1.05);
+  }
+  .cat-card:hover .cat-card__cta {
+    color: var(--color-accent, #00C4B4);
+  }
+  .cat-card:hover .cat-card__cta svg {
+    transform: translateX(3px);
+  }
+
+  .cat-card__media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+  }
+  .cat-card--featured .cat-card__media { aspect-ratio: 4 / 5; }
+  .cat-grid__items--mosaic .cat-card__media { aspect-ratio: auto; height: 100%; min-height: 180px; }
+  .cat-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+  .cat-card__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--color-text-muted, #9CA3AF);
+  }
+  .cat-card__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--color-accent, #00C4B4);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .cat-card__body {
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cat-card__title {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.25;
+  }
+  .cat-card__count {
+    font-size: 12px;
+    color: var(--color-text-muted, #6B7280);
+    font-weight: 500;
+  }
+  .cat-card__cta {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text, #111827);
+    transition: color .2s ease;
+  }
+  .cat-card__cta svg { transition: transform .2s ease; }
+
+  .cat-grid__empty {
+    text-align: center;
+    color: var(--color-text-muted, #6B7280);
+    padding: 32px;
+    border: 1px dashed var(--color-border, #E5E7EB);
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .cat-grid__items--grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cat-grid__items--mosaic { grid-template-columns: repeat(2, 1fr); }
+    .cat-grid__items--mosaic .cat-card:nth-child(1),
+    .cat-grid__items--mosaic .cat-card:nth-child(4) { grid-column: auto; grid-row: auto; }
+    .cat-card__body { padding: 12px 14px 14px; }
+    .cat-card__title { font-size: 14px; }
+  }
+  [data-theme="dark"] .cat-card { background: #1F2937; }
+  [data-theme="dark"] .cat-card__media { background: linear-gradient(135deg, #374151 0%, #1F2937 100%); }
+</style>
+
+{% schema %}
+{
+  "name": "Grid de categorías",
+  "tag": "section",
+  "class": "section-categories-grid",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Pretítulo",
+      "default": "Explora la tienda"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Compra por categoría"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Encuentra exactamente lo que buscas"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "grid", "label": "Grid uniforme" },
+        { "value": "mosaic", "label": "Mosaico (1 destacada)" }
+      ],
+      "default": "grid"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categoría",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Colección"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título personalizado (opcional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen personalizada (opcional)",
+          "info": "Si está vacío usa la imagen de la colección"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace personalizado (opcional)"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Etiqueta (opcional)",
+          "info": "Ej: Nuevo, Top, -20%"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_count",
+          "label": "Mostrar cantidad de productos",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Es destacada (formato vertical)",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grid de categorías",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
