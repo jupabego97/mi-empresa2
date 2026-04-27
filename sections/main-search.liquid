@@ -77,11 +77,7 @@
                           </div>
                         {%- endif -%}
 
-                        {%- if item.available == false -%}
-                          <span class="badge badge--sold-out">Agotado</span>
-                        {%- elsif item.compare_at_price > item.price -%}
-                          <span class="badge badge--sale">Oferta</span>
-                        {%- endif -%}
+                        {% render 'product-badges', product: item %}
                       </div>
 
                       <div class="product-card-info">

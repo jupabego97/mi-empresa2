@@ -1,0 +1,83 @@
+{% comment %}
+  Product Badges - Snippet reusable de etiquetas para product cards.
+  Parámetro: product (obligatorio), context (opcional)
+
+  Detecta y muestra:
+  - Descuento % (sale)
+  - Nuevo (creado en los últimos 30 días)
+  - Bestseller (tag "bestseller", "destacado" o métrica)
+  - Stock bajo (1-5 unidades del primer variant)
+  - Agotado
+{% endcomment %}
+
+{%- liquid
+  if product == blank
+    break
+  endif
+
+  assign now_seconds = 'now' | date: '%s' | times: 1
+  assign created_seconds = product.created_at | date: '%s' | times: 1
+  assign days_old = now_seconds | minus: created_seconds | divided_by: 86400
+
+  assign show_discount = false
+  if product.compare_at_price > product.price
+    assign show_discount = true
+    assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+  endif
+
+  assign show_new = false
+  if days_old < 30 and product.available
+    assign show_new = true
+  endif
+
+  assign show_bestseller = false
+  assign tags_lower = product.tags | join: '|' | downcase
+  if tags_lower contains 'bestseller' or tags_lower contains 'mas-vendido' or tags_lower contains 'destacado' or tags_lower contains 'top'
+    assign show_bestseller = true
+  endif
+
+  assign show_low_stock = false
+  assign first_variant = product.variants.first
+  if first_variant.inventory_management == 'shopify' and first_variant.inventory_quantity > 0 and first_variant.inventory_quantity <= 5 and product.available
+    assign show_low_stock = true
+  endif
+
+  assign show_soldout = false
+  unless product.available
+    assign show_soldout = true
+  endunless
+-%}
+
+<div class="pb-stack">
+  {%- if show_discount -%}
+    <span class="pb pb--sale" aria-label="Descuento del {{ discount }} por ciento">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+      -{{ discount }}%
+    </span>
+  {%- endif -%}
+
+  {%- if show_new -%}
+    <span class="pb pb--new" aria-label="Producto nuevo">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 14.39 8.34 21 9.27 16 14.14 17.18 21.02 12 17.77 6.82 21.02 8 14.14 3 9.27 9.61 8.34 12 2"/></svg>
+      Nuevo
+    </span>
+  {%- endif -%}
+
+  {%- if show_bestseller -%}
+    <span class="pb pb--bestseller" aria-label="Más vendido">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+      Top ventas
+    </span>
+  {%- endif -%}
+
+  {%- if show_low_stock -%}
+    <span class="pb pb--low-stock" aria-label="Quedan pocas unidades">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      ¡Últimas {{ first_variant.inventory_quantity }}!
+    </span>
+  {%- endif -%}
+
+  {%- if show_soldout -%}
+    <span class="pb pb--soldout" aria-label="Producto agotado">Agotado</span>
+  {%- endif -%}
+</div>

@@ -76,15 +76,7 @@
                   </div>
                 {%- endif -%}
 
-                <div class="product-card__badges">
-                  {%- if product.compare_at_price > product.price -%}
-                    {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                    <span class="badge badge--sale">-{{ discount }}%</span>
-                  {%- endif -%}
-                  {%- if product.available == false -%}
-                    <span class="badge badge--soldout">Agotado</span>
-                  {%- endif -%}
-                </div>
+                {% render 'product-badges', product: product %}
               </div>
 
               <div class="product-card__content">

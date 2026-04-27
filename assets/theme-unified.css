@@ -1,12 +1,12 @@
 /* =============================================================
-   NANO Tech Store — Unified Conversion System v4.1
+   NANO Tech Store ? Unified Conversion System v4.1
    Capa final que se carga al final del <body> y normaliza
-   tipografía, sombras, radios, botones, formularios y
-   componentes en TODAS las páginas para una experiencia
+   tipograf�a, sombras, radios, botones, formularios y
+   componentes en TODAS las p�ginas para una experiencia
    consistente y orientada a la venta.
    ============================================================= */
 
-/* ── 1. Tokens y aliases globales ───────────────────────────── */
+/* ?? 1. Tokens y aliases globales ????????????????????????????? */
 :root {
   --u-radius-sm:  8px;
   --u-radius:     12px;
@@ -39,7 +39,7 @@
   --u-surface: #1F2937;
 }
 
-/* ── 2. Tipografía global (sin uppercase forzado en UI) ─────── */
+/* ?? 2. Tipograf�a global (sin uppercase forzado en UI) ??????? */
 body {
   font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
   font-feature-settings: "ss01", "kern";
@@ -97,7 +97,7 @@ h1, h2, h3, h4,
   letter-spacing: -0.02em !important;
 }
 
-/* ── 3. Reset profundo de "neobrutalist" residual ──────────── */
+/* ?? 3. Reset profundo de "neobrutalist" residual ???????????? */
 .btn, .btn--primary, .btn--secondary, .btn--ghost,
 .product-card, .product-card__btn, .product-card__image,
 .collection-section .product-card, .collection-section .product-card-image,
@@ -126,7 +126,7 @@ h1, h2, h3, h4,
   opacity: 1 !important;
 }
 
-/* ── 4. Botones globales ────────────────────────────────────── */
+/* ?? 4. Botones globales ?????????????????????????????????????? */
 .btn, .btn--primary, .btn--secondary, .btn--ghost,
 .search-submit, .auth-submit,
 .product-card__btn, .quick-add-btn,
@@ -197,7 +197,7 @@ h1, h2, h3, h4,
   border-color: var(--u-text) !important;
 }
 
-/* ── 5. Inputs / selects / textarea unificados ─────────────── */
+/* ?? 5. Inputs / selects / textarea unificados ??????????????? */
 .form-input, .field__input,
 .search-input, .footer__newsletter-input,
 .note-input, .quantity-input, .reduction-code-input,
@@ -230,7 +230,7 @@ input:focus, select:focus, textarea:focus {
   color: #F9FAFB !important;
 }
 
-/* ── 6. Badges normalizados ────────────────────────────────── */
+/* ?? 6. Badges normalizados ?????????????????????????????????? */
 .badge, .product-badges .badge, .badge--sale, .badge--new,
 .badge--soldout, .badge--sold-out, .badge--bestseller,
 .badge--handdrawn, .badge--stopping {
@@ -250,7 +250,7 @@ input:focus, select:focus, textarea:focus {
 .badge--soldout, .badge--sold-out { background: #6B7280 !important; color: #fff !important; }
 .badge--handdrawn              { background: rgba(0, 196, 180, 0.12) !important; color: #00A89A !important; }
 
-/* ── 7. Tarjetas de producto en cualquier sitio ────────────── */
+/* ?? 7. Tarjetas de producto en cualquier sitio ?????????????? */
 .product-card,
 .collection-section .product-card,
 .search-results .product-card,
@@ -279,14 +279,14 @@ input:focus, select:focus, textarea:focus {
   background: var(--u-bg) !important;
 }
 
-/* ── 8. Sección de hero limpia ─────────────────────────────── */
+/* ?? 8. Secci�n de hero limpia ??????????????????????????????? */
 .hero-section { background: var(--u-bg) !important; border-bottom: 1px solid var(--u-border-c) !important; }
 .hero-card { border: 1px solid var(--u-border-c) !important; border-radius: 16px !important; box-shadow: 0 4px 20px rgba(17,24,39,0.06) !important; }
 .hero-card__title { text-transform: none !important; letter-spacing: -0.02em !important; }
 .hero-card__cta { border-radius: 999px !important; box-shadow: var(--u-shadow-cta) !important; }
 .hero-card__cta:hover { box-shadow: var(--u-shadow-cta-h) !important; transform: translateY(-1px) !important; }
 
-/* ── 9. Catálogo destacado / colección ─────────────────────── */
+/* ?? 9. Cat�logo destacado / colecci�n ??????????????????????? */
 .featured-section { background: var(--u-bg) !important; }
 .catalog-tab { border-right: 1px solid var(--u-border-c) !important; text-transform: none !important; font-family: var(--font-body) !important; }
 .catalog-tab--active { background: var(--u-accent) !important; color: #fff !important; border-radius: 999px !important; }
@@ -319,7 +319,7 @@ input:focus, select:focus, textarea:focus {
   background: rgba(0, 196, 180, 0.05) !important;
 }
 
-/* ── 10. Footer (oscuro y consistente) ─────────────────────── */
+/* ?? 10. Footer (oscuro y consistente) ??????????????????????? */
 .site-footer {
   background: #111827 !important;
   border-top: 1px solid #1F2937 !important;
@@ -470,7 +470,7 @@ input:focus, select:focus, textarea:focus {
 .free-shipping-bar--success .free-shipping-bar__title svg { color: #16A34A; }
 .free-shipping-bar--success .free-shipping-bar__progress-fill { background: #16A34A; }
 
-/* ── 11. Carrito limpio (override del header bar) ──────────── */
+/* ?? 11. Carrito limpio (override del header bar) ???????????? */
 .cart-header { border-bottom: 1px solid var(--u-border-c) !important; }
 .cart-title  { font-family: var(--font-heading) !important; font-weight: 800 !important; letter-spacing: -0.02em !important; text-transform: none !important; }
 .cart-count  { background: var(--u-accent) !important; border: none !important; border-radius: 999px !important; box-shadow: none !important; font-family: var(--font-body) !important; }
@@ -520,7 +520,7 @@ input:focus, select:focus, textarea:focus {
   padding: 14px 22px !important;
 }
 
-/* ── 12. Página de producto (clases pp-*) ──────────────────── */
+/* ?? 12. P�gina de producto (clases pp-*) ???????????????????? */
 /* Los estilos viven inline en main-product.liquid.
    Solo forzamos consistencia de cart quantity fuera del PDP. */
 .cart-item .quantity-selector {
@@ -529,7 +529,7 @@ input:focus, select:focus, textarea:focus {
   background: #fff !important;
 }
 
-/* ── 13. Página de búsqueda y 404 ──────────────────────────── */
+/* ?? 13. P�gina de b�squeda y 404 ???????????????????????????? */
 .search-input-container {
   border: 1px solid var(--u-border-c) !important;
   border-radius: 999px !important;
@@ -607,7 +607,7 @@ input:focus, select:focus, textarea:focus {
 .search-btn { background: var(--u-accent) !important; }
 .search-btn:hover { background: var(--u-accent-h) !important; transform: none !important; }
 
-/* ── 14. Páginas de cuenta (login / register / addresses) ──── */
+/* ?? 14. P�ginas de cuenta (login / register / addresses) ???? */
 .auth-section, .account-section, .addresses-section {
   background: var(--u-bg) !important;
   background-image: radial-gradient(rgba(0,196,180,0.08) 1px, transparent 1px) !important;
@@ -636,7 +636,7 @@ input:focus, select:focus, textarea:focus {
 .auth-divider span { background: var(--u-bg, #F7F8FA) !important; padding: 0 12px; }
 .terms-text { font-size: 12px !important; }
 
-/* ── 15. Lista de colecciones (más rica) ──────────────────── */
+/* ?? 15. Lista de colecciones (m�s rica) ???????????????????? */
 .collections-section { background: var(--u-bg) !important; padding: var(--space-12, 3rem) 0 var(--space-16, 4rem) !important; }
 .collections-title { text-transform: none !important; letter-spacing: -0.02em !important; }
 .collection-card {
@@ -655,7 +655,7 @@ input:focus, select:focus, textarea:focus {
 }
 .collection-link-text { color: #fff !important; font-weight: 600 !important; }
 
-/* ── 15.5. Precios unificados (home, catálogo, búsqueda, recs) ─ */
+/* ?? 15.5. Precios unificados (home, cat�logo, b�squeda, recs) ? */
 .product-card__price,
 .product-card-price,
 .collection-section .product-card-price,
@@ -683,7 +683,7 @@ input:focus, select:focus, textarea:focus {
   line-height: 1 !important;
 }
 
-/* Precio actual cuando hay descuento → rojo "deal" */
+/* Precio actual cuando hay descuento ? rojo "deal" */
 .product-card__price-current--sale,
 .collection-section .price--sale,
 .search-results .price--sale,
@@ -732,20 +732,20 @@ input:focus, select:focus, textarea:focus {
   .recommendations-section .price-save { font-size: 0.65rem !important; padding: 3px 7px !important; }
 }
 
-/* ── 16. Recommendations / "También te puede interesar" ────── */
+/* ?? 16. Recommendations / "Tambi�n te puede interesar" ?????? */
 .recommendations-section { background: var(--u-bg) !important; }
 .recommendations-title { letter-spacing: -0.02em !important; }
 .recommendations-section .product-card-vendor { text-transform: none !important; letter-spacing: 0.02em !important; font-weight: 600 !important; }
 .quick-add-btn { border-radius: 999px !important; }
 
-/* ── 17. Animaciones reveal: hacer fallback siempre visible ── */
+/* ?? 17. Animaciones reveal: hacer fallback siempre visible ?? */
 .no-js .reveal,
 .no-js .reveal-stagger > * {
   opacity: 1 !important;
   transform: none !important;
 }
 
-/* Si JS tarda más de 1s, mostrar todo igualmente */
+/* Si JS tarda m�s de 1s, mostrar todo igualmente */
 @media (prefers-reduced-motion: no-preference) {
   .reveal:not(.revealed),
   .reveal-stagger:not(.revealed) > * {
@@ -753,7 +753,7 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
-/* ── 18. Notificaciones ────────────────────────────────────── */
+/* ?? 18. Notificaciones ?????????????????????????????????????? */
 .notification-toast {
   border-radius: var(--u-radius) !important;
   font-family: var(--font-body) !important;
@@ -761,7 +761,7 @@ input:focus, select:focus, textarea:focus {
   box-shadow: var(--u-shadow-3) !important;
 }
 
-/* ── 19. WhatsApp flotante (insertado abajo) ──────────────── */
+/* ?? 19. WhatsApp flotante (insertado abajo) ???????????????? */
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
@@ -786,7 +786,7 @@ input:focus, select:focus, textarea:focus {
   body.template-product .whatsapp-float { bottom: 96px; }
 }
 
-/* ── 20. Misc cleanups ─────────────────────────────────────── */
+/* ?? 20. Misc cleanups ??????????????????????????????????????? */
 .handdrawn-underline,
 .handdrawn-underline::after,
 .kinetic-text,
@@ -804,22 +804,22 @@ input:focus, select:focus, textarea:focus {
   background: var(--u-bg) !important;
 }
 
-/* Página de cuenta y direcciones (templates antiguos) */
+/* P�gina de cuenta y direcciones (templates antiguos) */
 .account-page, .addresses-page {
   background: var(--u-bg) !important;
 }
 
-/* Limpieza de gradiente "extraño" en benefits--support */
+/* Limpieza de gradiente "extra�o" en benefits--support */
 .benefits__cell--support {
   background: linear-gradient(135deg, #00C4B4 0%, #38BDF8 100%) !important;
   border: 1px solid transparent !important;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   21. DARK MODE — contraste completo para todas las páginas
-   Usa las variables del sistema (--color-*, --u-*) más overrides
+/* ???????????????????????????????????????????????????????????????
+   21. DARK MODE ? contraste completo para todas las p�ginas
+   Usa las variables del sistema (--color-*, --u-*) m�s overrides
    directos para inline styles que usan colores literales.
-═══════════════════════════════════════════════════════════════ */
+??????????????????????????????????????????????????????????????? */
 
 [data-theme="dark"] {
   /* Tokens unificados (refuerzo) */
@@ -837,7 +837,7 @@ input:focus, select:focus, textarea:focus {
   --u-shadow-cta-h:0 10px 26px rgba(45,212,191,.35);
 }
 
-/* ── 21.1 Página de producto (pp-*) ─────────────────────────── */
+/* ?? 21.1 P�gina de producto (pp-*) ??????????????????????????? */
 [data-theme="dark"] .product-page { background: var(--u-bg) !important; }
 
 [data-theme="dark"] .pp-breadcrumb { color: #6B7280; }
@@ -893,7 +893,7 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .pp-qty-input { color: #F3F4F6; border-color: #374151; }
 [data-theme="dark"] .pp-qty-input:focus { background: rgba(45,212,191,.04); }
 
-/* Botón agregar */
+/* Bot�n agregar */
 [data-theme="dark"] .pp-add-btn { background: var(--u-accent); box-shadow: var(--u-shadow-cta); }
 [data-theme="dark"] .pp-add-btn:hover:not(:disabled) { background: var(--u-accent-h); box-shadow: var(--u-shadow-cta-h); }
 [data-theme="dark"] .pp-add-btn:disabled { background: #374151; color: #6B7280; box-shadow: none; }
@@ -933,7 +933,7 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .pp-lb-close { background: rgba(255,255,255,.08); }
 [data-theme="dark"] .pp-lb-arrow { background: rgba(255,255,255,.08); }
 
-/* Sticky CTA móvil */
+/* Sticky CTA m�vil */
 @media (max-width: 768px) {
   [data-theme="dark"] .pp-add-row {
     background: #111827;
@@ -942,7 +942,7 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
-/* ── 21.2 Product cards (home, colección, búsqueda, recs) ──── */
+/* ?? 21.2 Product cards (home, colecci�n, b�squeda, recs) ???? */
 [data-theme="dark"] .product-card,
 [data-theme="dark"] .featured-card {
   background: #1F2937 !important;
@@ -972,21 +972,21 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .product-card__price,
 [data-theme="dark"] .product-card-price { border-top-color: #374151 !important; }
 
-/* Botón de tarjeta */
+/* Bot�n de tarjeta */
 [data-theme="dark"] .product-card__btn,
 [data-theme="dark"] .quick-add-btn {
   background: var(--u-accent) !important;
   color: #fff !important;
 }
 
-/* ── 21.3 Hero / Featured sections ─────────────────────────── */
+/* ?? 21.3 Hero / Featured sections ??????????????????????????? */
 [data-theme="dark"] .hero-card,
 [data-theme="dark"] .featured-section { background: var(--u-bg) !important; }
 [data-theme="dark"] .hero-card {
   border-color: #374151 !important;
 }
 
-/* ── 21.4 Collection / Search pages ────────────────────────── */
+/* ?? 21.4 Collection / Search pages ?????????????????????????? */
 [data-theme="dark"] .collection-section,
 [data-theme="dark"] .search-section { background: var(--u-bg) !important; }
 [data-theme="dark"] .collection-title,
@@ -994,7 +994,7 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .collection-description { color: #9CA3AF !important; }
 [data-theme="dark"] .collection-banner { border-color: #374151 !important; }
 
-/* ── 21.5 Cart ─────────────────────────────────────────────── */
+/* ?? 21.5 Cart ??????????????????????????????????????????????? */
 [data-theme="dark"] .cart-section { background: var(--u-bg) !important; }
 [data-theme="dark"] .cart-item { background: #1F2937 !important; border-color: #374151 !important; }
 [data-theme="dark"] .cart-item-title { color: #F3F4F6 !important; }
@@ -1006,11 +1006,11 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .free-shipping-bar { background: #1F2937 !important; border-color: #374151 !important; }
 [data-theme="dark"] .free-shipping-bar p { color: #D1D5DB !important; }
 
-/* ── 21.6 Footer ───────────────────────────────────────────── */
+/* ?? 21.6 Footer ????????????????????????????????????????????? */
 [data-theme="dark"] .footer-trust-bar { background: #111827 !important; border-color: #374151 !important; }
 [data-theme="dark"] .footer__trust-item { color: #D1D5DB !important; }
 
-/* ── 21.7 Benefits section ─────────────────────────────────── */
+/* ?? 21.7 Benefits section ??????????????????????????????????? */
 [data-theme="dark"] .benefits-section { background: var(--u-bg) !important; }
 [data-theme="dark"] .benefits__cell {
   background: #1F2937 !important;
@@ -1019,7 +1019,7 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .benefits__cell-title { color: #F3F4F6 !important; }
 [data-theme="dark"] .benefits__cell-text { color: #9CA3AF !important; }
 
-/* ── 21.8 Account / Auth pages ─────────────────────────────── */
+/* ?? 21.8 Account / Auth pages ??????????????????????????????? */
 [data-theme="dark"] .auth-section,
 [data-theme="dark"] .account-page,
 [data-theme="dark"] .addresses-page { background: var(--u-bg) !important; }
@@ -1033,16 +1033,16 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .account-section-title { color: #F3F4F6 !important; }
 [data-theme="dark"] .auth-subtitle { color: #9CA3AF !important; }
 
-/* ── 21.9 404 page ─────────────────────────────────────────── */
+/* ?? 21.9 404 page ??????????????????????????????????????????? */
 [data-theme="dark"] .error-section { background: var(--u-bg) !important; }
 [data-theme="dark"] .error-title { color: #F3F4F6 !important; }
 [data-theme="dark"] .error-message { color: #9CA3AF !important; }
 
-/* ── 21.10 Recommendations ─────────────────────────────────── */
+/* ?? 21.10 Recommendations ??????????????????????????????????? */
 [data-theme="dark"] .recommendations-section { background: var(--u-bg) !important; }
 [data-theme="dark"] .recommendations-title { color: #F3F4F6 !important; }
 
-/* ── 21.11 Search ──────────────────────────────────────────── */
+/* ?? 21.11 Search ???????????????????????????????????????????? */
 [data-theme="dark"] .search-input-container {
   border-color: #374151 !important;
   background: #1F2937 !important;
@@ -1050,7 +1050,7 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .search-input { color: #F3F4F6 !important; }
 [data-theme="dark"] .search-tag { background: #1F2937 !important; border-color: #374151 !important; color: #D1D5DB !important; }
 
-/* ── 21.12 Global buttons en dark ──────────────────────────── */
+/* ?? 21.12 Global buttons en dark ???????????????????????????? */
 [data-theme="dark"] .btn--ghost {
   background: #1F2937 !important;
   border-color: #374151 !important;
@@ -1066,17 +1066,17 @@ input:focus, select:focus, textarea:focus {
   color: #D1D5DB !important;
 }
 
-/* ── 21.13 Notifications / Toast en dark ───────────────────── */
+/* ?? 21.13 Notifications / Toast en dark ????????????????????? */
 [data-theme="dark"] .notification-toast {
   box-shadow: 0 8px 24px rgba(0,0,0,.5) !important;
 }
 
-/* ── 21.14 Floating WhatsApp ───────────────────────────────── */
+/* ?? 21.14 Floating WhatsApp ????????????????????????????????? */
 [data-theme="dark"] .whatsapp-float {
   box-shadow: 0 4px 14px rgba(0,0,0,.4) !important;
 }
 
-/* ── 21.15 Collection list ─────────────────────────────────── */
+/* ?? 21.15 Collection list ??????????????????????????????????? */
 [data-theme="dark"] .collections-grid .collection-card {
   background: #1F2937 !important;
   border-color: #374151 !important;
@@ -1102,4 +1102,93 @@ input:focus, select:focus, textarea:focus {
   :root:not([data-theme="light"]) .pp-tabs { border-bottom-color: #374151; }
   :root:not([data-theme="light"]) .pp-tab { color: #6B7280; }
   :root:not([data-theme="light"]) .pp-tab--active { color: var(--u-accent); border-bottom-color: var(--u-accent); }
+}
+
+/* =============================================================
+   PRODUCT BADGES - Etiquetas dinamicas en product cards
+   ============================================================= */
+.pb-stack {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+  pointer-events: none;
+  align-items: flex-start;
+}
+.pb {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  text-transform: none;
+  pointer-events: auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.pb svg { flex-shrink: 0; }
+
+.pb--sale {
+  background: #EF4444;
+  color: #fff;
+}
+.pb--new {
+  background: #FFFFFF;
+  color: #111827;
+  border: 1px solid #E5E7EB;
+}
+.pb--bestseller {
+  background: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
+  color: #fff;
+}
+.pb--low-stock {
+  background: #FFEDD5;
+  color: #9A3412;
+  border: 1px solid #FED7AA;
+}
+.pb--soldout {
+  background: #1F2937;
+  color: #fff;
+  opacity: 0.95;
+}
+
+/* Override estilos antiguos .badge en cards para que coexistan */
+.product-card .badge { display: none !important; }
+
+[data-theme="dark"] .pb--new {
+  background: #1F2937;
+  color: #F3F4F6;
+  border-color: #374151;
+}
+[data-theme="dark"] .pb--low-stock {
+  background: #422006;
+  color: #FED7AA;
+  border-color: #92400E;
+}
+[data-theme="dark"] .pb--soldout {
+  background: #111827;
+  color: #F3F4F6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pb--new {
+    background: #1F2937;
+    color: #F3F4F6;
+    border-color: #374151;
+  }
+}
+
+@media (max-width: 480px) {
+  .pb-stack { top: 8px; left: 8px; gap: 4px; }
+  .pb { font-size: 10px; padding: 4px 8px; }
 }

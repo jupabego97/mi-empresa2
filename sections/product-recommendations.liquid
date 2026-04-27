@@ -36,16 +36,7 @@
                   </div>
                 {%- endif -%}
 
-                <!-- Badges -->
-                <div class="product-badges">
-                  {%- if product.available == false -%}
-                    <span class="badge badge--sold-out">Agotado</span>
-                  {%- elsif product.compare_at_price > product.price -%}
-                    <span class="badge badge--sale">
-                      -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
-                    </span>
-                  {%- endif -%}
-                </div>
+                {% render 'product-badges', product: product %}
 
                 <!-- Quick add button -->
                 {%- if product.available and product.has_only_default_variant -%}
