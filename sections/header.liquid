@@ -3,27 +3,68 @@
   Diseño simplificado y moderno
 {% endcomment %}
 
-<!-- Announcement Bar / Marquee -->
-<div class="announcement-bar">
-  <div class="announcement-bar__marquee">
-    <div class="marquee-track">
-      <span class="announcement-bar__item">// TECNOLOGÍA DE CALIDAD AL MEJOR PRECIO</span>
-      <span class="announcement-bar__item">// ENVÍOS A TODO EL PAÍS</span>
-      <span class="announcement-bar__item">// 30 DÍAS PARA DEVOLUCIONES</span>
-      <span class="announcement-bar__item">// MÁS DE 5,000 CLIENTES FELICES</span>
-      <span class="announcement-bar__item">// GARANTÍA 6 MESES</span>
-      <span class="announcement-bar__item">// ENVÍO GRATIS +$100K</span>
-      <span class="announcement-bar__item">// COMPRA 100% SEGURA</span>
-      <span class="announcement-bar__item">// TECNOLOGÍA DE CALIDAD AL MEJOR PRECIO</span>
-      <span class="announcement-bar__item">// ENVÍOS A TODO EL PAÍS</span>
-      <span class="announcement-bar__item">// 30 DÍAS PARA DEVOLUCIONES</span>
-      <span class="announcement-bar__item">// MÁS DE 5,000 CLIENTES FELICES</span>
-      <span class="announcement-bar__item">// GARANTÍA 6 MESES</span>
-      <span class="announcement-bar__item">// ENVÍO GRATIS +$100K</span>
-      <span class="announcement-bar__item">// COMPRA 100% SEGURA</span>
+{%- comment -%} Announcement bar con promos rotativas (auto-rotación + flechas) {%- endcomment -%}
+{%- assign promo_blocks = section.blocks | where: "type", "promo" -%}
+{%- if promo_blocks.size > 0 -%}
+  <div class="announcement-bar announcement-bar--rotator"
+       data-promo-rotator
+       data-promo-interval="{{ section.settings.promo_interval | default: 4500 }}"
+       aria-label="Promociones destacadas">
+    <div class="announcement-bar__inner">
+      <button type="button" class="announcement-bar__arrow announcement-bar__arrow--prev" aria-label="Promo anterior" data-promo-prev>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      <div class="announcement-bar__viewport" aria-live="polite">
+        {%- for block in promo_blocks -%}
+          {%- assign is_first = forloop.first -%}
+          {%- if block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" class="announcement-bar__slide{% if is_first %} is-active{% endif %}" data-promo-slide {% unless is_first %}aria-hidden="true"{% endunless %} {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}<span class="announcement-bar__icon" aria-hidden="true">{{ block.settings.icon }}</span>{%- endif -%}
+              <span class="announcement-bar__text">{{ block.settings.text }}</span>
+              {%- if block.settings.cta != blank -%}<span class="announcement-bar__cta">{{ block.settings.cta }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>{%- endif -%}
+            </a>
+          {%- else -%}
+            <span class="announcement-bar__slide{% if is_first %} is-active{% endif %}" data-promo-slide {% unless is_first %}aria-hidden="true"{% endunless %} {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}<span class="announcement-bar__icon" aria-hidden="true">{{ block.settings.icon }}</span>{%- endif -%}
+              <span class="announcement-bar__text">{{ block.settings.text }}</span>
+            </span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <button type="button" class="announcement-bar__arrow announcement-bar__arrow--next" aria-label="Siguiente promo" data-promo-next>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    {%- if promo_blocks.size > 1 -%}
+      <div class="announcement-bar__dots" role="tablist" aria-label="Indicadores de promo">
+        {%- for block in promo_blocks -%}
+          <button type="button" class="announcement-bar__dot{% if forloop.first %} is-active{% endif %}" data-promo-dot="{{ forloop.index0 }}" aria-label="Ir a promo {{ forloop.index }}"></button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- else -%}
+  {%- comment -%} Fallback marquee si no hay blocks configurados {%- endcomment -%}
+  <div class="announcement-bar">
+    <div class="announcement-bar__marquee">
+      <div class="marquee-track">
+        <span class="announcement-bar__item">ENVÍO GRATIS DESDE $100.000</span>
+        <span class="announcement-bar__item">30 DÍAS PARA DEVOLUCIONES</span>
+        <span class="announcement-bar__item">GARANTÍA DE 6 MESES</span>
+        <span class="announcement-bar__item">+5.000 CLIENTES FELICES</span>
+        <span class="announcement-bar__item">PAGO 100% SEGURO</span>
+        <span class="announcement-bar__item">ENVÍO GRATIS DESDE $100.000</span>
+        <span class="announcement-bar__item">30 DÍAS PARA DEVOLUCIONES</span>
+        <span class="announcement-bar__item">GARANTÍA DE 6 MESES</span>
+        <span class="announcement-bar__item">+5.000 CLIENTES FELICES</span>
+        <span class="announcement-bar__item">PAGO 100% SEGURO</span>
+      </div>
     </div>
   </div>
-</div>
+{%- endif -%}
 
 <!-- Main Header -->
 <header class="site-header" data-section-id="{{ section.id }}" data-section-type="header">
@@ -339,6 +380,143 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     padding: 0 var(--space-8);
+  }
+
+  /* =========================================
+     ANNOUNCEMENT BAR - Rotador de promos
+     ========================================= */
+  .announcement-bar--rotator {
+    padding: 0;
+    overflow: visible;
+  }
+  .announcement-bar__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 10px 44px;
+    min-height: 38px;
+  }
+  .announcement-bar__viewport {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-height: 18px;
+  }
+  .announcement-bar__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .35s ease, transform .35s ease;
+    pointer-events: none;
+    padding: 0 8px;
+  }
+  .announcement-bar__slide.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    position: relative;
+  }
+  .announcement-bar__slide:hover .announcement-bar__cta {
+    transform: translateX(2px);
+  }
+  .announcement-bar__icon {
+    font-size: 14px;
+    line-height: 1;
+  }
+  .announcement-bar__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 6px;
+    padding-left: 10px;
+    border-left: 1px solid rgba(255,255,255,0.35);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    transition: transform .2s ease;
+  }
+  .announcement-bar__cta svg { flex-shrink: 0; }
+
+  .announcement-bar__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+    z-index: 2;
+  }
+  .announcement-bar__arrow:hover {
+    background: rgba(255,255,255,0.32);
+    transform: translateY(-50%) scale(1.05);
+  }
+  .announcement-bar__arrow:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .announcement-bar__arrow--prev { left: 8px; }
+  .announcement-bar__arrow--next { right: 8px; }
+
+  .announcement-bar__dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 0 6px;
+  }
+  .announcement-bar__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    background: rgba(255,255,255,0.45);
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .announcement-bar__dot:hover { background: rgba(255,255,255,0.7); }
+  .announcement-bar__dot.is-active {
+    background: #fff;
+    transform: scale(1.25);
+  }
+
+  @media (max-width: 600px) {
+    .announcement-bar__inner { padding: 8px 36px; min-height: 34px; }
+    .announcement-bar__slide { font-size: 12px; }
+    .announcement-bar__arrow { width: 22px; height: 22px; }
+    .announcement-bar__arrow--prev { left: 4px; }
+    .announcement-bar__arrow--next { right: 4px; }
+    .announcement-bar__cta { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .announcement-bar__slide { transition: opacity .2s ease; transform: none; }
   }
 
   /* =========================================
@@ -954,6 +1132,56 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Theme toggle is handled in theme.js
+
+  // ────────────────────────────────────────
+  // Announcement Bar - Rotador de promos
+  // ────────────────────────────────────────
+  const promoRotator = document.querySelector('[data-promo-rotator]');
+  if (promoRotator) {
+    const slides = Array.from(promoRotator.querySelectorAll('[data-promo-slide]'));
+    const dots   = Array.from(promoRotator.querySelectorAll('[data-promo-dot]'));
+    const prev   = promoRotator.querySelector('[data-promo-prev]');
+    const next   = promoRotator.querySelector('[data-promo-next]');
+    const interval = parseInt(promoRotator.dataset.promoInterval, 10) || 4500;
+    const reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0;
+    let timer = null;
+
+    function show(idx) {
+      if (slides.length === 0) return;
+      current = (idx + slides.length) % slides.length;
+      slides.forEach((s, i) => {
+        const isActive = i === current;
+        s.classList.toggle('is-active', isActive);
+        if (isActive) s.removeAttribute('aria-hidden');
+        else s.setAttribute('aria-hidden', 'true');
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
+    }
+    function start() {
+      if (slides.length < 2 || reduced) return;
+      stop();
+      timer = setInterval(() => show(current + 1), interval);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    if (prev) prev.addEventListener('click', () => { show(current - 1); start(); });
+    if (next) next.addEventListener('click', () => { show(current + 1); start(); });
+    dots.forEach(d => d.addEventListener('click', () => {
+      show(parseInt(d.dataset.promoDot, 10) || 0);
+      start();
+    }));
+    promoRotator.addEventListener('mouseenter', stop);
+    promoRotator.addEventListener('mouseleave', start);
+    promoRotator.addEventListener('focusin', stop);
+    promoRotator.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop(); else start();
+    });
+    show(0);
+    start();
+  }
 });
 </script>
 
@@ -961,6 +1189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {
   "name": "Header 2026",
   "class": "section-header",
+  "max_blocks": 8,
   "settings": [
     {
       "type": "image_picker",
@@ -982,7 +1211,98 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "menu",
       "default": "main-menu",
       "label": "Menú de navegación"
+    },
+    {
+      "type": "header",
+      "content": "Barra de anuncios"
+    },
+    {
+      "type": "range",
+      "id": "promo_interval",
+      "min": 2000,
+      "max": 10000,
+      "step": 500,
+      "default": 4500,
+      "unit": "ms",
+      "label": "Intervalo de rotación de promos"
+    },
+    {
+      "type": "paragraph",
+      "content": "Agrega bloques tipo 'Promoción' para activar el rotador. Si no agregas ninguno, se mostrará un marquee genérico."
     }
-  ]
+  ],
+  "blocks": [
+    {
+      "type": "promo",
+      "name": "Promoción",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Ícono (emoji opcional)",
+          "info": "Ej: 🚚, 🔒, ⚡, 🎁",
+          "default": "🚚"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto de la promo",
+          "default": "Envío gratis en compras superiores a $100.000"
+        },
+        {
+          "type": "text",
+          "id": "cta",
+          "label": "Texto del CTA (opcional)",
+          "info": "Ej: Ver más, Comprar ahora",
+          "default": "Ver más"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace (opcional)"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "promo",
+        "settings": {
+          "icon": "🚚",
+          "text": "Envío gratis en compras superiores a $100.000",
+          "cta": "Ver más",
+          "link": ""
+        }
+      },
+      {
+        "type": "promo",
+        "settings": {
+          "icon": "🔒",
+          "text": "Pago 100% seguro · Garantía de 6 meses",
+          "cta": "",
+          "link": ""
+        }
+      },
+      {
+        "type": "promo",
+        "settings": {
+          "icon": "↩️",
+          "text": "30 días para devoluciones sin preguntas",
+          "cta": "",
+          "link": ""
+        }
+      },
+      {
+        "type": "promo",
+        "settings": {
+          "icon": "⭐",
+          "text": "+5.000 clientes felices recomiendan nuestra tienda",
+          "cta": "",
+          "link": ""
+        }
+      }
+    ]
+  }
 }
 {% endschema %}
