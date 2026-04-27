@@ -53,6 +53,28 @@
         "show_stats": true
       }
     },
+    "payment-benefits": {
+      "type": "payment-benefits",
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "icon": "💳", "title": "Cuotas sin interés", "description": "Hasta 12 cuotas en bancos seleccionados." } },
+        "b2": { "type": "benefit", "settings": { "icon": "🔒", "title": "Pago 100% seguro", "description": "Transacciones cifradas y verificadas." } },
+        "b3": { "type": "benefit", "settings": { "icon": "🚚", "title": "Envío gratis", "description": "Sobre $100.000 a todo el país." } },
+        "b4": { "type": "benefit", "settings": { "icon": "↩️", "title": "Devolución en 30 días", "description": "Cambio o reembolso sin preguntas." } },
+        "m1": { "type": "method", "settings": { "label": "Visa" } },
+        "m2": { "type": "method", "settings": { "label": "Mastercard" } },
+        "m3": { "type": "method", "settings": { "label": "PSE" } },
+        "m4": { "type": "method", "settings": { "label": "Nequi" } },
+        "m5": { "type": "method", "settings": { "label": "Daviplata" } },
+        "m6": { "type": "method", "settings": { "label": "Addi" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "m1", "m2", "m3", "m4", "m5", "m6"],
+      "settings": {
+        "eyebrow": "Compra con confianza",
+        "title": "Paga como prefieras",
+        "subtitle": "Múltiples métodos de pago, cuotas sin intereses y total seguridad en tus compras.",
+        "methods_label": "Aceptamos:"
+      }
+    },
     "newsletter-incentive": {
       "type": "newsletter-incentive",
       "settings": {
@@ -90,6 +112,7 @@
     "featured-products",
     "benefits",
     "testimonials",
+    "payment-benefits",
     "newsletter-incentive"
   ]
 }

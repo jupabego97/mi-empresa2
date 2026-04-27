@@ -1,0 +1,291 @@
+{% comment %}
+  Payment Benefits - Métodos de pago, financiamiento y garantías
+{% endcomment %}
+
+<section class="pay-benefits" data-section-id="{{ section.id }}" data-section-type="payment-benefits">
+  <div class="pay-benefits__container">
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <header class="pay-benefits__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="pay-benefits__eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="pay-benefits__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="pay-benefits__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <div class="pay-benefits__grid">
+      {%- comment -%} Bloques (cuotas, garantias, etc.) {%- endcomment -%}
+      {%- assign benefit_blocks = section.blocks | where: "type", "benefit" -%}
+      {%- if benefit_blocks.size > 0 -%}
+        <div class="pay-benefits__features">
+          {%- for block in benefit_blocks -%}
+            <div class="pay-feature" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                <span class="pay-feature__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+              {%- endif -%}
+              <div class="pay-feature__body">
+                <h3 class="pay-feature__title">{{ block.settings.title }}</h3>
+                {%- if block.settings.description != blank -%}
+                  <p class="pay-feature__desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="pay-benefits__methods">
+        <span class="pay-benefits__methods-label">{{ section.settings.methods_label | default: 'Aceptamos:' }}</span>
+        <div class="pay-benefits__methods-list" role="list">
+          {%- assign method_blocks = section.blocks | where: "type", "method" -%}
+          {%- for block in method_blocks -%}
+            <span class="pay-method" role="listitem" title="{{ block.settings.label | escape }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | image_url: width: 80 }}" alt="{{ block.settings.label | escape }}" width="40" height="26" loading="lazy">
+              {%- else -%}
+                <span class="pay-method__text">{{ block.settings.label }}</span>
+              {%- endif -%}
+            </span>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pay-benefits {
+    background: var(--color-surface, #F9FAFB);
+    padding: clamp(40px, 6vw, 72px) 0;
+    border-top: 1px solid var(--color-border, #E5E7EB);
+    border-bottom: 1px solid var(--color-border, #E5E7EB);
+  }
+  .pay-benefits__container {
+    max-width: var(--container-max, 1280px);
+    margin: 0 auto;
+    padding: 0 var(--container-padding, 24px);
+  }
+  .pay-benefits__header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto clamp(20px, 3vw, 36px);
+  }
+  .pay-benefits__eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--color-accent, #00C4B4);
+    margin-bottom: 6px;
+  }
+  .pay-benefits__title {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--color-text, #111827);
+  }
+  .pay-benefits__subtitle {
+    font-size: 15px;
+    color: var(--color-text-muted, #6B7280);
+    margin: 0;
+  }
+
+  .pay-benefits__features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .pay-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px;
+    background: var(--color-bg, #fff);
+    border: 1px solid var(--color-border, #E5E7EB);
+    border-radius: 14px;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .pay-feature:hover {
+    border-color: var(--color-accent, #00C4B4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  }
+  .pay-feature__icon {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0,196,180,0.12), rgba(56,189,248,0.10));
+    font-size: 22px;
+  }
+  .pay-feature__title {
+    margin: 0 0 4px;
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text, #111827);
+    letter-spacing: 0;
+  }
+  .pay-feature__desc {
+    margin: 0;
+    font-size: 13px;
+    color: var(--color-text-muted, #6B7280);
+    line-height: 1.45;
+  }
+
+  .pay-benefits__methods {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 18px;
+    background: var(--color-bg, #fff);
+    border: 1px solid var(--color-border, #E5E7EB);
+    border-radius: 14px;
+  }
+  .pay-benefits__methods-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-muted, #6B7280);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  .pay-benefits__methods-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .pay-method {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    min-width: 48px;
+    padding: 0 10px;
+    background: var(--color-surface, #F3F4F6);
+    border: 1px solid var(--color-border, #E5E7EB);
+    border-radius: 6px;
+  }
+  .pay-method img { display: block; max-height: 22px; width: auto; }
+  .pay-method__text {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text, #111827);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  [data-theme="dark"] .pay-benefits { background: #111827; border-color: #374151; }
+  [data-theme="dark"] .pay-feature { background: #1F2937; border-color: #374151; }
+  [data-theme="dark"] .pay-benefits__methods { background: #1F2937; border-color: #374151; }
+  [data-theme="dark"] .pay-method { background: #111827; border-color: #374151; }
+  [data-theme="dark"] .pay-method__text { color: #F3F4F6; }
+</style>
+
+{% schema %}
+{
+  "name": "Métodos de pago",
+  "tag": "section",
+  "class": "section-payment-benefits",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Pretítulo",
+      "default": "Compra con confianza"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Paga como prefieras"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Múltiples métodos de pago, cuotas sin intereses y total seguridad en tus compras."
+    },
+    {
+      "type": "text",
+      "id": "methods_label",
+      "label": "Etiqueta de métodos",
+      "default": "Aceptamos:"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Beneficio",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icono (emoji)",
+          "default": "💳"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Cuotas sin interés"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Descripción",
+          "default": "Hasta 12 cuotas en bancos seleccionados."
+        }
+      ]
+    },
+    {
+      "type": "method",
+      "name": "Método de pago",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Nombre",
+          "default": "Visa"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo (opcional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Métodos de pago",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "💳", "title": "Cuotas sin interés", "description": "Hasta 12 cuotas en bancos seleccionados." } },
+        { "type": "benefit", "settings": { "icon": "🔒", "title": "Pago 100% seguro", "description": "Transacciones cifradas y verificadas." } },
+        { "type": "benefit", "settings": { "icon": "🚚", "title": "Envío gratis", "description": "Sobre $100.000 a todo el país." } },
+        { "type": "benefit", "settings": { "icon": "↩️", "title": "Devolución en 30 días", "description": "Cambio o reembolso sin preguntas." } },
+        { "type": "method", "settings": { "label": "Visa" } },
+        { "type": "method", "settings": { "label": "Mastercard" } },
+        { "type": "method", "settings": { "label": "PSE" } },
+        { "type": "method", "settings": { "label": "Nequi" } },
+        { "type": "method", "settings": { "label": "Daviplata" } },
+        { "type": "method", "settings": { "label": "Addi" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
