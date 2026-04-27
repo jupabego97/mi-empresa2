@@ -52,12 +52,31 @@
         "subtitle": "Tu satisfacción es nuestra prioridad",
         "show_stats": true
       }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "name": "Andrea M.", "location": "Bogotá", "rating": 5, "verified": true, "text": "El producto llegó super rápido y de excelente calidad. La atención por WhatsApp fue muy clara, super recomendados." } },
+        "t2": { "type": "testimonial", "settings": { "name": "Carlos R.", "location": "Medellín", "rating": 5, "verified": true, "text": "Compré un MacBook y todo salió perfecto. Cero complicaciones, factura electrónica al instante y empaque impecable." } },
+        "t3": { "type": "testimonial", "settings": { "name": "Laura P.", "location": "Cali", "rating": 5, "verified": true, "text": "Llevo varias compras con ellos y siempre cumplen. Tienen muy buenos precios y devolución sin problemas cuando la necesité." } },
+        "t4": { "type": "testimonial", "settings": { "name": "Daniel S.", "location": "Barranquilla", "rating": 4, "verified": true, "text": "Excelente experiencia. La envoltura es buena y los productos son originales con garantía. Volveré a comprar." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": {
+        "eyebrow": "Lo que dicen nuestros clientes",
+        "title": "+5.000 clientes felices",
+        "subtitle": "Compras seguras, envíos rápidos y atención de verdad.",
+        "show_rating": true,
+        "rating_value": "4.9",
+        "rating_count": "5.000+"
+      }
     }
   },
   "order": [
     "hero",
     "categories-grid",
     "featured-products",
-    "benefits"
+    "benefits",
+    "testimonials"
   ]
 }

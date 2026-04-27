@@ -1,0 +1,397 @@
+{% comment %}
+  Testimonials - Sección de social proof con carrusel
+{% endcomment %}
+
+<section class="tm-section" data-section-id="{{ section.id }}" data-section-type="testimonials">
+  <div class="tm-section__container">
+    <header class="tm-section__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="tm-section__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="tm-section__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="tm-section__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.show_rating -%}
+        <div class="tm-section__rating" aria-label="Calificación promedio {{ section.settings.rating_value }} de 5">
+          <span class="tm-section__stars" aria-hidden="true">
+            {%- assign rating = section.settings.rating_value | times: 1 -%}
+            {%- for i in (1..5) -%}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="{% if i <= rating %}#F59E0B{% else %}none{% endif %}" stroke="#F59E0B" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {%- endfor -%}
+          </span>
+          <span class="tm-section__rating-text"><strong>{{ section.settings.rating_value }}</strong> · {{ section.settings.rating_count }} reseñas</span>
+        </div>
+      {%- endif -%}
+    </header>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="tm-carousel" data-tm-carousel>
+        <button type="button" class="tm-carousel__arrow tm-carousel__arrow--prev" data-tm-prev aria-label="Anterior testimonio">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+
+        <div class="tm-carousel__track" data-tm-track>
+          {%- for block in section.blocks -%}
+            <article class="tm-card" {{ block.shopify_attributes }}>
+              <div class="tm-card__rating" aria-hidden="true">
+                {%- assign r = block.settings.rating | default: 5 | times: 1 -%}
+                {%- for i in (1..5) -%}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="{% if i <= r %}#F59E0B{% else %}#E5E7EB{% endif %}" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                {%- endfor -%}
+              </div>
+
+              <blockquote class="tm-card__quote">
+                <svg class="tm-card__quote-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M3 21c3 0 5-2 5-5V8H3v8h2c0 1.1-.9 2-2 2v3zm12 0c3 0 5-2 5-5V8h-5v8h2c0 1.1-.9 2-2 2v3z"/>
+                </svg>
+                <p>{{ block.settings.text | escape }}</p>
+              </blockquote>
+
+              <footer class="tm-card__author">
+                {%- if block.settings.avatar != blank -%}
+                  <img src="{{ block.settings.avatar | image_url: width: 80 }}"
+                       alt="{{ block.settings.name | escape }}"
+                       width="48" height="48"
+                       loading="lazy"
+                       class="tm-card__avatar">
+                {%- else -%}
+                  <span class="tm-card__avatar tm-card__avatar--initial" aria-hidden="true">{{ block.settings.name | slice: 0 | upcase }}</span>
+                {%- endif -%}
+                <div class="tm-card__author-info">
+                  <span class="tm-card__name">{{ block.settings.name }}</span>
+                  {%- if block.settings.location != blank -%}
+                    <span class="tm-card__meta">{{ block.settings.location }}</span>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.verified -%}
+                  <span class="tm-card__verified" title="Compra verificada">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#10B981" stroke="none"><path d="M12 2L4 5v6c0 5.6 3.5 10.7 8 12 4.5-1.3 8-6.4 8-12V5l-8-3z"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Verificado
+                  </span>
+                {%- endif -%}
+              </footer>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        <button type="button" class="tm-carousel__arrow tm-carousel__arrow--next" data-tm-next aria-label="Siguiente testimonio">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .tm-section {
+    background: var(--color-bg, #fff);
+    padding: clamp(48px, 8vw, 96px) 0;
+  }
+  .tm-section__container {
+    max-width: var(--container-max, 1280px);
+    margin: 0 auto;
+    padding: 0 var(--container-padding, 24px);
+  }
+  .tm-section__header {
+    text-align: center;
+    margin: 0 auto clamp(24px, 4vw, 48px);
+    max-width: 720px;
+  }
+  .tm-section__eyebrow {
+    display: inline-block;
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--color-accent, #00C4B4);
+    margin-bottom: 8px;
+  }
+  .tm-section__title {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--color-text, #111827);
+    line-height: 1.15;
+  }
+  .tm-section__subtitle {
+    font-size: 16px;
+    color: var(--color-text-muted, #6B7280);
+    margin: 0 0 18px;
+  }
+  .tm-section__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--color-surface, #F9FAFB);
+    border: 1px solid var(--color-border, #E5E7EB);
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--color-text, #111827);
+  }
+  .tm-section__stars { display: inline-flex; gap: 2px; }
+  .tm-section__rating-text strong { font-weight: 700; }
+
+  .tm-carousel {
+    position: relative;
+  }
+  .tm-carousel__track {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 8px 4px 24px;
+    margin: 0 -4px;
+    scrollbar-width: thin;
+  }
+  .tm-carousel__track::-webkit-scrollbar { height: 6px; }
+  .tm-carousel__track::-webkit-scrollbar-thumb { background: var(--color-border, #E5E7EB); border-radius: 999px; }
+
+  .tm-card {
+    flex: 0 0 calc((100% - 36px) / 3);
+    min-width: 280px;
+    scroll-snap-align: start;
+    background: var(--color-surface, #F9FAFB);
+    border: 1px solid var(--color-border, #E5E7EB);
+    border-radius: 16px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+  }
+  .tm-card:hover {
+    border-color: var(--color-accent, #00C4B4);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .tm-card__rating { display: inline-flex; gap: 2px; }
+
+  .tm-card__quote {
+    margin: 0;
+    position: relative;
+    padding-left: 36px;
+    color: var(--color-text, #111827);
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 15px;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .tm-card__quote-icon {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    color: var(--color-accent, #00C4B4);
+    opacity: .8;
+  }
+  .tm-card__quote p { margin: 0; }
+
+  .tm-card__author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+  }
+  .tm-card__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--color-border, #E5E7EB);
+    flex-shrink: 0;
+  }
+  .tm-card__avatar--initial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #fff;
+    background: var(--color-accent, #00C4B4);
+    font-size: 16px;
+  }
+  .tm-card__author-info { display: flex; flex-direction: column; min-width: 0; }
+  .tm-card__name { font-weight: 700; font-size: 14px; color: var(--color-text, #111827); }
+  .tm-card__meta { font-size: 12px; color: var(--color-text-muted, #6B7280); }
+  .tm-card__verified {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #10B981;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .tm-carousel__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border, #E5E7EB);
+    background: var(--color-bg, #fff);
+    color: var(--color-text, #111827);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all .2s ease;
+  }
+  .tm-carousel__arrow:hover {
+    color: #fff;
+    background: var(--color-accent, #00C4B4);
+    border-color: var(--color-accent, #00C4B4);
+    transform: translateY(-50%) scale(1.05);
+  }
+  .tm-carousel__arrow--prev { left: -8px; }
+  .tm-carousel__arrow--next { right: -8px; }
+
+  @media (max-width: 1024px) {
+    .tm-card { flex: 0 0 calc((100% - 18px) / 2); }
+  }
+  @media (max-width: 640px) {
+    .tm-card { flex: 0 0 85%; min-width: 260px; }
+    .tm-carousel__arrow { display: none; }
+  }
+  [data-theme="dark"] .tm-card { background: #1F2937; border-color: #374151; }
+  [data-theme="dark"] .tm-section__rating { background: #1F2937; border-color: #374151; color: #F3F4F6; }
+  [data-theme="dark"] .tm-carousel__arrow { background: #1F2937; border-color: #374151; color: #F3F4F6; }
+</style>
+
+<script>
+(function() {
+  const carousel = document.querySelector('[data-tm-carousel]');
+  if (!carousel) return;
+  const track = carousel.querySelector('[data-tm-track]');
+  const prev  = carousel.querySelector('[data-tm-prev]');
+  const next  = carousel.querySelector('[data-tm-next]');
+  if (!track) return;
+  function step() {
+    const card = track.querySelector('.tm-card');
+    return card ? card.getBoundingClientRect().width + 18 : 320;
+  }
+  if (prev) prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  if (next) next.addEventListener('click', () => track.scrollBy({ left:  step(), behavior: 'smooth' }));
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Testimonios",
+  "tag": "section",
+  "class": "section-testimonials",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Pretítulo",
+      "default": "Lo que dicen nuestros clientes"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "+5.000 clientes felices"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Compras seguras, envíos rápidos y atención de verdad."
+    },
+    {
+      "type": "header",
+      "content": "Calificación general"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Mostrar barra de calificación",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Calificación promedio",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "Cantidad de reseñas",
+      "default": "5.000+"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonio",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nombre",
+          "default": "Andrea M."
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Ciudad / Detalle",
+          "default": "Bogotá"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar (opcional)"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testimonio",
+          "default": "Excelente servicio, llegó rápido y con la calidad prometida. Recomendado 100%."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Estrellas",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Compra verificada",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonios",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}
