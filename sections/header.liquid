@@ -52,14 +52,14 @@
     <div class="announcement-bar__marquee">
       <div class="marquee-track">
         <span class="announcement-bar__item">ENVÍO GRATIS DESDE $100.000</span>
-        <span class="announcement-bar__item">30 DÍAS PARA DEVOLUCIONES</span>
-        <span class="announcement-bar__item">GARANTÍA DE 6 MESES</span>
-        <span class="announcement-bar__item">+5.000 CLIENTES FELICES</span>
+        <span class="announcement-bar__item">CAMBIOS SEGÚN POLÍTICAS DE LA TIENDA</span>
+        <span class="announcement-bar__item">GARANTÍA SEGÚN PRODUCTO Y LEY</span>
+        <span class="announcement-bar__item">TIENDA LOCAL · ENVÍOS REGIONALES Y NACIONALES</span>
         <span class="announcement-bar__item">PAGO 100% SEGURO</span>
         <span class="announcement-bar__item">ENVÍO GRATIS DESDE $100.000</span>
-        <span class="announcement-bar__item">30 DÍAS PARA DEVOLUCIONES</span>
-        <span class="announcement-bar__item">GARANTÍA DE 6 MESES</span>
-        <span class="announcement-bar__item">+5.000 CLIENTES FELICES</span>
+        <span class="announcement-bar__item">CAMBIOS SEGÚN POLÍTICAS DE LA TIENDA</span>
+        <span class="announcement-bar__item">GARANTÍA SEGÚN PRODUCTO Y LEY</span>
+        <span class="announcement-bar__item">TIENDA LOCAL · ENVÍOS REGIONALES Y NACIONALES</span>
         <span class="announcement-bar__item">PAGO 100% SEGURO</span>
       </div>
     </div>
@@ -97,7 +97,7 @@
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
               <polyline points="9 22 9 12 15 12 15 22"/>
             </svg>
-            Home
+            Inicio
           </a>
         </li>
         <li class="header__menu-item">
@@ -278,7 +278,7 @@
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
               <polyline points="9 22 9 12 15 12 15 22"/>
             </svg>
-            Home
+            Inicio
           </a>
         </li>
         <li>
@@ -1467,9 +1467,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const loading    = searchOverlay.querySelector('[data-search-loading]');
     const suggestions= searchOverlay.querySelector('[data-search-suggestions]');
     const closers    = searchOverlay.querySelectorAll('[data-search-close]');
-    const moneyFmt = window.Shopify && Shopify.formatMoney
-      ? (cents) => Shopify.formatMoney(cents, '${{amount}}')
-      : (cents) => '$' + (cents / 100).toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const moneyFmt = (cents) => {
+      const fmt = window.__NANO_MONEY_FORMAT || '${{amount}}';
+      if (window.Shopify && Shopify.formatMoney && typeof cents === 'number' && !isNaN(cents)) {
+        return Shopify.formatMoney(cents, fmt);
+      }
+      return '$' + (Number(cents) / 100).toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    };
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+    function safeProductUrl(href) {
+      if (!href || typeof href !== 'string') return '#';
+      const t = href.trim();
+      if (t.startsWith('/')) return t;
+      try {
+        const u = new URL(t, window.location.origin);
+        if (u.origin === window.location.origin) return u.pathname + u.search + u.hash;
+      } catch (e) {}
+      return '#';
+    }
+    function safeImgUrl(src) {
+      if (!src || typeof src !== 'string') return '';
+      const t = src.trim();
+      if (t.startsWith('//')) return 'https:' + t;
+      if (t.startsWith('/')) return t;
+      try {
+        const u = new URL(t);
+        if (u.protocol === 'https:' || u.protocol === 'http:') return u.href;
+      } catch (e) {}
+      return '';
+    }
+    function priceLine(p) {
+      if (p == null) return '';
+      if (typeof p.price === 'string' && p.price.trim()) return escapeHtml(p.price.trim());
+      if (typeof p.price === 'number' && p.price > 0) return moneyFmt(p.price);
+      return '';
+    }
+    function compareLine(p) {
+      if (typeof p.compare_at_price === 'string' && p.compare_at_price.trim()) {
+        return escapeHtml(p.compare_at_price.trim());
+      }
+      if (typeof p.compare_at_price === 'number' && typeof p.price === 'number' && p.compare_at_price > p.price) {
+        return moneyFmt(p.compare_at_price);
+      }
+      return '';
+    }
 
     let debounceId = null;
     let abortCtrl  = null;
@@ -1497,11 +1541,18 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       hide(empty); hide(loading); hide(suggestions);
-      results.innerHTML = items.map(p => {
-        const img = p.image ? `<img class="search-result-card__img" src="${p.image}" alt="${p.title.replace(/"/g,'&quot;')}" loading="lazy">` : '<div class="search-result-card__img"></div>';
-        const price = typeof p.price === 'number' ? moneyFmt(p.price) : (p.price || '');
-        const compare = (typeof p.compare_at_price === 'number' && p.compare_at_price > p.price) ? `<span class="search-result-card__compare">${moneyFmt(p.compare_at_price)}</span>` : '';
-        return `<a class="search-result-card" href="${p.url}">${img}<div class="search-result-card__body"><p class="search-result-card__title">${p.title}</p><span class="search-result-card__price">${price}${compare}</span></div></a>`;
+      results.innerHTML = items.map((p) => {
+        const title = escapeHtml(p.title || '');
+        const href = safeProductUrl(p.url);
+        const imgSrc = safeImgUrl(p.image);
+        const img = imgSrc
+          ? `<img class="search-result-card__img" src="${escapeHtml(imgSrc)}" alt="${title}" loading="lazy">`
+          : '<div class="search-result-card__img"></div>';
+        const pMain = priceLine(p);
+        const pCmp = compareLine(p);
+        const compare = pCmp ? `<span class="search-result-card__compare">${pCmp}</span>` : '';
+        const priceBlock = pMain || compare ? `<span class="search-result-card__price">${pMain}${compare}</span>` : '';
+        return `<a class="search-result-card" href="${escapeHtml(href)}">${img}<div class="search-result-card__body"><p class="search-result-card__title">${title}</p>${priceBlock}</div></a>`;
       }).join('');
     }
 
@@ -1514,12 +1565,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(r => r.json())
         .then(data => {
           const products = (data && data.resources && data.resources.results && data.resources.results.products) || [];
-          const mapped = products.map(p => ({
+          const mapped = products.map((p) => ({
             title: p.title,
             url: p.url,
             image: (p.featured_image && (p.featured_image.url || p.featured_image)) || p.image || '',
-            price: p.price ? parseInt(String(p.price).replace(/\D/g, ''), 10) : null,
-            compare_at_price: p.compare_at_price ? parseInt(String(p.compare_at_price).replace(/\D/g, ''), 10) : null
+            price: p.price,
+            compare_at_price: p.compare_at_price
           }));
           renderResults(mapped);
         })

@@ -69,21 +69,26 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": {{ shop.name | json }},
-      "url": {{ shop.url | json }},
+      "url": {{ shop.url | json }}
       {%- if settings.logo -%}
-      "logo": {{ settings.logo | image_url: width: 500 | prepend: 'https:' | json }},
+      ,"logo": {{ settings.logo | image_url: width: 500 | prepend: 'https:' | json }}
       {%- endif -%}
-      "contactPoint": {
+      {%- if shop.address.phone != blank -%}
+      ,"contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+57-300-123-4567",
+        "telephone": {{ shop.address.phone | json }},
         "contactType": "customer service",
         "availableLanguage": ["Spanish"]
-      },
-      "sameAs": [
-        {%- if settings.social_facebook_link != blank -%}{{ settings.social_facebook_link | json }},{%- endif -%}
-        {%- if settings.social_instagram_link != blank -%}{{ settings.social_instagram_link | json }},{%- endif -%}
-        {%- if settings.social_twitter_link != blank -%}{{ settings.social_twitter_link | json }},{%- endif -%}
-        {%- if settings.social_youtube_link != blank -%}{{ settings.social_youtube_link | json }}{%- endif -%}
+      }
+      {%- endif -%}
+      ,"sameAs": [
+        {%- assign __first_sa = true -%}
+        {%- if settings.social_facebook_link != blank -%}{%- unless __first_sa -%},{%- endunless -%}{{ settings.social_facebook_link | json }}{%- assign __first_sa = false -%}{%- endif -%}
+        {%- if settings.social_instagram_link != blank -%}{%- unless __first_sa -%},{%- endunless -%}{{ settings.social_instagram_link | json }}{%- assign __first_sa = false -%}{%- endif -%}
+        {%- if settings.social_twitter_link != blank -%}{%- unless __first_sa -%},{%- endunless -%}{{ settings.social_twitter_link | json }}{%- assign __first_sa = false -%}{%- endif -%}
+        {%- if settings.social_youtube_link != blank -%}{%- unless __first_sa -%},{%- endunless -%}{{ settings.social_youtube_link | json }}{%- assign __first_sa = false -%}{%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}{%- unless __first_sa -%},{%- endunless -%}{{ settings.social_tiktok_link | json }}{%- assign __first_sa = false -%}{%- endif -%}
+        {%- if settings.social_whatsapp_link != blank -%}{%- unless __first_sa -%},{%- endunless -%}{{ settings.social_whatsapp_link | json }}{%- assign __first_sa = false -%}{%- endif -%}
       ]
     }
   </script>
@@ -267,6 +272,10 @@
   {{ 'theme-extras-clean.css' | asset_url | stylesheet_tag }}
   {{ 'theme-unified.css' | asset_url | stylesheet_tag }}
 
+  <!-- Formato de dinero para JS (cart drawer, etc.) -->
+  <script>
+    window.__NANO_MONEY_FORMAT = {{ shop.money_format | json }};
+  </script>
   <!-- Cart Drawer (lateral, AJAX) -->
   {% render 'cart-drawer' %}
   <script src="{{ 'cart-drawer.js' | asset_url }}" defer></script>

@@ -68,9 +68,9 @@
                   {%- endif -%}
                 </div>
                 {%- if block.settings.verified -%}
-                  <span class="tm-card__verified" title="Compra verificada">
+                  <span class="tm-card__verified" title="Opinión compartida por el cliente">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="#10B981" stroke="none"><path d="M12 2L4 5v6c0 5.6 3.5 10.7 8 12 4.5-1.3 8-6.4 8-12V5l-8-3z"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Verificado
+                    Opinión del cliente
                   </span>
                 {%- endif -%}
               </footer>
@@ -305,13 +305,13 @@
       "type": "text",
       "id": "title",
       "label": "Título",
-      "default": "+5.000 clientes felices"
+      "default": "Clientes en varias ciudades"
     },
     {
       "type": "text",
       "id": "subtitle",
       "label": "Subtítulo",
-      "default": "Compras seguras, envíos rápidos y atención de verdad."
+      "default": "Atención cercana, envíos cuidados y respaldo después de la venta."
     },
     {
       "type": "header",
@@ -333,7 +333,7 @@
       "type": "text",
       "id": "rating_count",
       "label": "Cantidad de reseñas",
-      "default": "5.000+"
+      "default": "Opiniones en crecimiento"
     }
   ],
   "blocks": [
@@ -376,7 +376,7 @@
         {
           "type": "checkbox",
           "id": "verified",
-          "label": "Compra verificada",
+          "label": "Mostrar sello de opinión",
           "default": true
         }
       ]

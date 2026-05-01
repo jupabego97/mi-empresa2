@@ -12,10 +12,13 @@
     "hero": {
       "type": "main-hero",
       "settings": {
-        "title": "Al Son De La Tecnología.",
-        "description": "Computadores, tablets, parlantes y accesorios con garantía comprobada. Compra fácil y segura desde cualquier lugar de Colombia.",
-        "button_label": "Ver ofertas flash",
-        "button_link": "shopify://collections/all"
+        "rating_line": "Atención cercana y envíos a tu región",
+        "title": "Tecnología de confianza, cerca de ti.",
+        "description": "Somos una tienda local: asesoramos por WhatsApp, despachamos con cuidado y ampliamos cobertura nacional paso a paso. Computadores, tablets, audio y accesorios con respaldo claro.",
+        "button_label": "Ver catálogo",
+        "button_link": "shopify://collections/all",
+        "secondary_button_label": "Asesoría por WhatsApp",
+        "secondary_button_link": ""
       }
     },
     "categories-grid": {
@@ -28,9 +31,9 @@
       },
       "block_order": ["cat-1", "cat-2", "cat-3", "cat-4"],
       "settings": {
-        "eyebrow": "Explora la tienda",
+        "eyebrow": "Desde tu ciudad hacia el país",
         "title": "Compra por categoría",
-        "subtitle": "Encuentra exactamente lo que buscas",
+        "subtitle": "Arma tu pedido con lo que más mueve tu región y recibe en casa u oficina.",
         "layout": "grid"
       }
     },
@@ -49,17 +52,17 @@
       "settings": {
         "eyebrow": "¿Por qué elegirnos?",
         "title": "¿Por qué comprar con nosotros?",
-        "subtitle": "Tu satisfacción es nuestra prioridad",
+        "subtitle": "Tienda local con respaldo claro: asesoría, envíos y soporte después de la venta.",
         "show_stats": true
       }
     },
     "payment-benefits": {
       "type": "payment-benefits",
       "blocks": {
-        "b1": { "type": "benefit", "settings": { "icon": "💳", "title": "Cuotas sin interés", "description": "Hasta 12 cuotas en bancos seleccionados." } },
-        "b2": { "type": "benefit", "settings": { "icon": "🔒", "title": "Pago 100% seguro", "description": "Transacciones cifradas y verificadas." } },
-        "b3": { "type": "benefit", "settings": { "icon": "🚚", "title": "Envío gratis", "description": "Sobre $100.000 a todo el país." } },
-        "b4": { "type": "benefit", "settings": { "icon": "↩️", "title": "Devolución en 30 días", "description": "Cambio o reembolso sin preguntas." } },
+        "b1": { "type": "benefit", "settings": { "icon": "💳", "title": "Cuotas y medios de pago", "description": "Según banco y promoción vigente. Consulta condiciones en checkout o con un asesor." } },
+        "b2": { "type": "benefit", "settings": { "icon": "🔒", "title": "Pago seguro", "description": "Checkout oficial de Shopify y métodos habilitados en tu tienda." } },
+        "b3": { "type": "benefit", "settings": { "icon": "🚚", "title": "Envíos", "description": "Envío gratis desde $100.000 en compras elegibles (según política de envíos)." } },
+        "b4": { "type": "benefit", "settings": { "icon": "↩️", "title": "Cambios y devoluciones", "description": "Aplican políticas publicadas de la tienda y la ley de consumidor." } },
         "m1": { "type": "method", "settings": { "label": "Visa" } },
         "m2": { "type": "method", "settings": { "label": "Mastercard" } },
         "m3": { "type": "method", "settings": { "label": "PSE" } },
@@ -71,7 +74,7 @@
       "settings": {
         "eyebrow": "Compra con confianza",
         "title": "Paga como prefieras",
-        "subtitle": "Múltiples métodos de pago, cuotas sin intereses y total seguridad en tus compras.",
+        "subtitle": "Elige cómo pagar con tranquilidad. Si tienes dudas, te ayudamos por WhatsApp antes de comprar.",
         "methods_label": "Aceptamos:"
       }
     },
@@ -80,10 +83,11 @@
       "settings": {
         "eyebrow": "Únete al club",
         "title": "10% de descuento en tu primera compra",
-        "subtitle": "Suscríbete y recibe un cupón exclusivo, además de ofertas y novedades antes que nadie.",
-        "discount_label": "Cupón BIENVENIDA10 al instante",
+        "subtitle": "Suscríbete para recibir novedades, lanzamientos y beneficios para clientes. Si activamos cupón de bienvenida, te lo enviamos por correo.",
+        "discount_label": "Beneficios para suscriptores (por email)",
         "button_label": "Quiero mi descuento",
         "legal_text": "Sin spam. Cancela cuando quieras.",
+        "success_message": "¡Gracias! Revisa tu correo (y spam) para confirmar y ver próximos pasos.",
         "show_perks": true
       }
     },
@@ -92,17 +96,17 @@
       "blocks": {
         "t1": { "type": "testimonial", "settings": { "name": "Andrea M.", "location": "Bogotá", "rating": 5, "verified": true, "text": "El producto llegó super rápido y de excelente calidad. La atención por WhatsApp fue muy clara, super recomendados." } },
         "t2": { "type": "testimonial", "settings": { "name": "Carlos R.", "location": "Medellín", "rating": 5, "verified": true, "text": "Compré un MacBook y todo salió perfecto. Cero complicaciones, factura electrónica al instante y empaque impecable." } },
-        "t3": { "type": "testimonial", "settings": { "name": "Laura P.", "location": "Cali", "rating": 5, "verified": true, "text": "Llevo varias compras con ellos y siempre cumplen. Tienen muy buenos precios y devolución sin problemas cuando la necesité." } },
+        "t3": { "type": "testimonial", "settings": { "name": "Laura P.", "location": "Cali", "rating": 5, "verified": true, "text": "Llevo varias compras con ellos y siempre cumplen. Buenos precios y cuando tuve un inconveniente, me orientaron con la política de cambios." } },
         "t4": { "type": "testimonial", "settings": { "name": "Daniel S.", "location": "Barranquilla", "rating": 4, "verified": true, "text": "Excelente experiencia. La envoltura es buena y los productos son originales con garantía. Volveré a comprar." } }
       },
       "block_order": ["t1", "t2", "t3", "t4"],
       "settings": {
         "eyebrow": "Lo que dicen nuestros clientes",
-        "title": "+5.000 clientes felices",
-        "subtitle": "Compras seguras, envíos rápidos y atención de verdad.",
+        "title": "Clientes en varias ciudades",
+        "subtitle": "Atención cercana, envíos cuidados y respaldo después de la venta.",
         "show_rating": true,
         "rating_value": "4.9",
-        "rating_count": "5.000+"
+        "rating_count": "Opiniones en crecimiento"
       }
     }
   },

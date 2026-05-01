@@ -18,10 +18,11 @@
   function $$(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
 
   function moneyFmt(cents) {
-    if (window.Shopify && Shopify.formatMoney) {
-      return Shopify.formatMoney(cents, '${{amount}}');
+    const fmt = window.__NANO_MONEY_FORMAT || '${{amount}}';
+    if (window.Shopify && Shopify.formatMoney && typeof cents === 'number' && !isNaN(cents)) {
+      return Shopify.formatMoney(cents, fmt);
     }
-    return '$' + (cents / 100).toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return '$' + (Number(cents) / 100).toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
   }
 
   // ───────────────────────────────────────

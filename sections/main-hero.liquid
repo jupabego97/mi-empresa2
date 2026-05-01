@@ -1,18 +1,23 @@
 {% comment %}
-  Hero Section - Simple card con CTA
+  Hero Section - Tarjeta con CTA principal y CTA secundario (ej. WhatsApp)
 {% endcomment %}
+
+{%- assign secondary_url = section.settings.secondary_button_link -%}
+{%- if secondary_url == blank and settings.social_whatsapp_link != blank -%}
+  {%- assign secondary_url = settings.social_whatsapp_link -%}
+{%- endif -%}
 
 <section class="hero-section" data-section-id="{{ section.id }}">
   <div class="hero-container">
     <div class="hero-card">
 
-      <!-- Rating -->
-      <div class="hero-card__stars" aria-label="4.9 de 5 estrellas">
-        <span>★★★★★</span>
-        <span class="hero-card__rating-text">4.9/5 Promedio</span>
-      </div>
+      {%- if section.settings.rating_line != blank -%}
+        <div class="hero-card__stars" aria-label="{{ section.settings.rating_line | strip | escape }}">
+          <span aria-hidden="true">★★★★★</span>
+          <span class="hero-card__rating-text">{{ section.settings.rating_line }}</span>
+        </div>
+      {%- endif -%}
 
-      <!-- Título -->
       {%- if section.settings.title != blank -%}
         <h1 class="hero-card__title">
           {%- assign words = section.settings.title | split: ' ' -%}
@@ -23,20 +28,28 @@
         </h1>
       {%- endif -%}
 
-      <!-- Descripción -->
       {%- if section.settings.description != blank -%}
         <p class="hero-card__desc">{{ section.settings.description }}</p>
       {%- endif -%}
 
-      <!-- CTA único -->
-      {%- if section.settings.button_label != blank -%}
-        <a href="{{ section.settings.button_link | default: routes.collections_url }}" class="hero-card__cta">
-          {{ section.settings.button_label }}
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-      {%- endif -%}
+      <div class="hero-card__ctas">
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: routes.collections_url }}" class="hero-card__cta hero-card__cta--primary">
+            {{ section.settings.button_label }}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.secondary_button_label != blank and secondary_url != blank -%}
+          <a href="{{ secondary_url }}" class="hero-card__cta hero-card__cta--secondary" {% if secondary_url contains 'wa.me' or secondary_url contains 'whatsapp' %}target="_blank" rel="noopener"{% endif %}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            {{ section.settings.secondary_button_label }}
+          </a>
+        {%- endif -%}
+      </div>
 
     </div>
   </div>
@@ -109,8 +122,18 @@
     font-size: var(--text-base);
     color: var(--color-text-secondary);
     line-height: 1.65;
-    max-width: 480px;
+    max-width: 520px;
     margin: 0;
+  }
+
+  .hero-card__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+    width: 100%;
   }
 
   .hero-card__cta {
@@ -118,9 +141,6 @@
     align-items: center;
     gap: var(--space-3);
     padding: var(--space-4) var(--space-8);
-    background: var(--color-accent);
-    color: white;
-    border: 1px solid var(--color-accent);
     border-radius: 999px;
     font-family: var(--font-body);
     font-size: var(--text-base);
@@ -128,17 +148,34 @@
     text-transform: none;
     letter-spacing: 0.01em;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0, 196, 180, 0.25);
     transition: all var(--transition-fast);
-    margin-top: var(--space-2);
   }
 
-  .hero-card__cta:hover {
+  .hero-card__cta--primary {
+    background: var(--color-accent);
+    color: white;
+    border: 1px solid var(--color-accent);
+    box-shadow: 0 2px 8px rgba(0, 196, 180, 0.25);
+  }
+
+  .hero-card__cta--primary:hover {
     background: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
     transform: translateY(-1px);
     color: white;
     box-shadow: 0 6px 20px rgba(0, 196, 180, 0.35);
+  }
+
+  .hero-card__cta--secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+  }
+
+  .hero-card__cta--secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-1px);
   }
 
   .hero-card__cta:active {
@@ -160,26 +197,44 @@
   "settings": [
     {
       "type": "text",
-      "id": "title",
-      "label": "Título",
-      "default": "Al Son De La Tecnología."
+      "id": "rating_line",
+      "label": "Línea de confianza (opcional)",
+      "info": "Si está vacío, no se muestran estrellas. Ejemplo: \"Clientes en varias ciudades nos recomiendan\"."
     },
     {
       "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Tecnología de confianza, cerca de ti."
+    },
+    {
+      "type": "textarea",
       "id": "description",
       "label": "Descripción",
-      "default": "Computadores, tablets, parlantes y accesorios con garantía comprobada. Compra fácil y segura desde cualquier lugar de Colombia."
+      "default": "Somos una tienda local con envíos a tu región y cobertura en crecimiento a todo Colombia. Asesoría humana, garantía y pago seguro."
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Texto del botón",
-      "default": "VER OFERTAS FLASH"
+      "label": "Texto del botón principal",
+      "default": "Ver catálogo"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Enlace del botón"
+      "label": "Enlace del botón principal"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Texto del botón secundario",
+      "default": "Asesoría por WhatsApp",
+      "info": "Si dejas el enlace vacío, se usa el WhatsApp configurado en Ajustes del tema."
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Enlace del botón secundario (opcional)"
     }
   ],
   "presets": [
